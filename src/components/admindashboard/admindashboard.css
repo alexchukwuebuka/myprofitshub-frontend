@@ -1,0 +1,408 @@
+.admin-dash{
+    min-height: auto;
+    width: 100%;
+}
+.credit-form-container{
+    width: 85%;
+    padding: 20px 10px;
+    background-color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 40px auto
+}
+.admin-page-header{
+    height: auto;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.admin-page-header h3{
+    color: var(--mild-color);
+}
+.admin-page-header p{
+    color: whitesmoke;
+}
+.admin-page-header h2{
+    color: white;
+}
+.credit-form{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: auto;
+}
+.my-input{
+    height: 50px;
+    text-indent: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    width: 40%;
+    outline: none;
+}
+.my-input:focus{
+    border:  2px solid rgb(157, 172, 255);
+}
+.my-input::placeholder{
+    text-transform: capitalize;
+    font-size: 1rem;
+}
+.credi-user{
+    padding: 15px 50px;
+    border-radius: 10px;
+    background-color:rgb(0, 63, 199);
+    color: white;
+    text-transform: capitalize;
+    cursor: pointer;
+    font-family: poppins;
+}
+.admin-user-display{
+    width: 95%;
+    background-color: white;
+    padding: 20px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+}
+.user-details-container{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+.user-email{
+    width: 40%;
+}
+.user-name{
+    width: 30%;
+}
+.user-password{
+    white-space: 20%;
+}
+.dashboard-wrapper{
+    flex-direction: column;
+    background-color: red;
+}
+
+.promo-btn,.manual-btn, .active-promo-btn, .approve-btn,.mail-btn{
+    background-color: rgb(4, 178, 4);
+    color: white !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    cursor: pointer;
+    width: fit-content;
+    padding: 8px 12px;
+    min-width: 100px;
+    margin:  0px 4px;
+}
+.mail-btn{
+    background-color: rgb(181, 49, 242);
+}
+.approve-btn{
+    background-color: rgb(19, 195, 133);
+}
+.promo-btn:hover{
+    background-color: rgb(0, 138, 39);
+}
+.manual-btn{
+    background-color: rgb(4, 143, 178);
+}
+.pdt-btn{
+    background-color: purple;
+}
+tbody{
+    overflow-x: scroll;
+}
+.active-promo-btn{
+    background-color: rgb(247, 45, 45);
+}
+.deactivate-card {
+    overflow: hidden;
+    position: relative;
+    background-color: #ffffff;
+    text-align: left;
+    border-radius: 0.5rem;
+    max-width: 290px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.deactivate-card .headers {
+    padding: 1.25rem 1rem 1rem 1rem;
+    background-color: #ffffff;
+}
+
+.deactivate-card .image {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #FEE2E2;
+    flex-shrink: 0;
+    justify-content: center;
+    align-items: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 9999px;
+}
+
+.deactivate-card .image svg {
+    color: #DC2626;
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.deactivate-card .content {
+    margin-top: 0.75rem;
+    text-align: center;
+}
+
+.deactivate-card .title {
+    color: #111827;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5rem;
+}
+
+.deactivate-card .message {
+    margin-top: 0.5rem;
+    color: #6B7280;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+}
+
+.deactivate-card .actions {
+    margin: 0.75rem 1rem;
+    background-color: #F9FAFB;
+}
+
+.deactivate-card .desactivate {
+    display: inline-flex;
+    padding: 0.5rem 1rem;
+    background-color: #DC2626;
+    color: #ffffff;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 500;
+    justify-content: center;
+    width: 100%;
+    border-radius: 0.375rem;
+    border-width: 1px;
+    border-color: transparent;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.deactivate-card .cancel {
+    display: inline-flex;
+    margin-top: 0.75rem;
+    padding: 0.5rem 1rem;
+    background-color: #ffffff;
+    color: #374151;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 500;
+    justify-content: center;
+    width: 100%;
+    border-radius: 0.375rem;
+    border: 1px solid #D1D5DB;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+.dash-b {
+    width: fit-content;
+    margin: auto;
+    padding-bottom:40px ;
+}
+.dash-b table{
+    overflow-x: auto;
+    width: fit-content;
+}
+.transaction-container{
+    overflow: auto;
+}
+.create-trader-section{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 10px;
+}
+
+/* From Uiverse.io by R1SH4BH81 */
+.create-trader-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #ffffff;
+    padding: 30px;
+    width: 80%;
+    border-radius: 20px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+::placeholder {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.create-trader-form button {
+    align-self: flex-end;
+}
+
+.flex-column>label {
+    color: #151717;
+    font-weight: 600;
+}
+
+.inputForm {
+    border: 1.5px solid #ecedec;
+    border-radius: 10px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    transition: 0.2s ease-in-out;
+}
+
+.create-trader-input {
+    margin-left: 10px;
+    border-radius: 10px;
+    border: none;
+    width: 85%;
+    height: 100%;
+}
+
+.create-trader-input:focus {
+    outline: none;
+}
+
+.inputForm:focus-within {
+    border: 1.5px solid #2d79f3;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.flex-row>div>label {
+    font-size: 14px;
+    color: black;
+    font-weight: 400;
+}
+
+.span {
+    font-size: 14px;
+    margin-left: 5px;
+    color: #2d79f3;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.button-submit {
+    margin: 20px 0 10px 0;
+    background-color: #151717;
+    border: none;
+    color: white;
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: 10px;
+    height: 50px;
+    width: 100%;
+    cursor: pointer;
+}
+
+.button-submit:hover {
+    background-color: #252727;
+}
+
+.p {
+    text-align: center;
+    color: black;
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+.btn {
+    margin-top: 10px;
+    width: 100%;
+    height: 50px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    gap: 10px;
+    border: 1px solid #ededef;
+    background-color: white;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+.btn:hover {
+    border: 1px solid #2d79f3;
+}
+.traders-log-section{
+    width: 100%;
+}
+.admin-trader-card{
+    width: 100%;
+    position: relative;
+}
+.admin-trader-card-delete-btn-container{
+    position: absolute;
+    padding: 10px;
+    background-color: rgb(255, 255, 255);
+    top: 20px;
+    right: 20px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: red;
+    font-size: 2rem;
+    cursor: pointer;
+}
+.trade-input{
+    margin: 15px 0px;
+}
+.select-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    margin: 0px;
+    font-family: Arial, sans-serif;
+    align-items: flex-start;
+}
+
+.custom-select {
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #fff;
+    font-size: 16px;
+    transition: border-color 0.2s;
+}
+
+.custom-select:focus {
+    border-color: #007bff;
+    outline: none;
+}
+.custom-select{
+    width: 100%;
+    padding: 10px;
+}
+@media screen and (max-width: 767px) {
+    .create-trader-form{
+        width: 100%;
+    }
+}

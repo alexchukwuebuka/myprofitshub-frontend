@@ -36,7 +36,7 @@ function App() {
     // duration=1200;
     }, [])
 
-    const route = 'https://vaultmirror.vercel.app'
+    const route = 'https://myprofitshub-backend.vercel.app'
     // const route = 'http://localhost:5000'
   
   return (
@@ -74,12 +74,8 @@ function App() {
             <Route path='/checkout' element={<Checkout route={route}/>}/>
             <Route path='/admin' element={<Admindashboard route={route}/>}/>
             <Route path='/deposit' element={<Deposit route={route}/>}/>
-            <Route path='/usercopytrade' element={<UserdashboardCopytrade route={route} />}/>
-            <Route path='/traders' element={<UserdashboardTraders route={route} />}/>
-            <Route path='/live-trading' element={<UserdashboardLiveTrading route={route} />}/>
             <Route path='/kyc' element={<UserdashboardKyc route={route} />} />
             <Route path="/login" element={<Login route={route} />} />
-            <Route path='/ranking' element={<UserdashboardRanking route={route}/>}/>
             <Route path='/passwordreset' element={<ForgotPassword route={route}/>}/>
             <Route path='/resetpassword/:email' element={<PasswordReset route={route}/>}/>
           </Routes>

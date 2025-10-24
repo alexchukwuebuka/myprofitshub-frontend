@@ -99,10 +99,6 @@ const Userdashboardhomepage = ({route}) => {
         
         <div className="dashboardheaderwrapper">
           <div className="header-notification-icon-container">
-            {
-              showNotification && userData && userData.funded === 0 &&
-              <span className="notification-counter">1</span>
-            }
               <IoMdNotifications />
           </div>
           <div className="header-username-container">
@@ -119,19 +115,6 @@ const Userdashboardhomepage = ({route}) => {
             
           </div>
         </div>
-        {
-          userData && showNotification && userData.funded === 0 ? 
-            <div className="notification-dashoboard-container">
-              <div className="notification-card">
-                <p>you have not deposited yet click <Link to='/fundwallet'>Here</Link> to make your first deposit</p>
-                <div className="close-notification-container" onClick={()=> setShowNotification(false)}>
-                    <IoCloseSharp />
-                </div>
-              </div>
-            </div>
-            : ''
-        }
-        
         <div className="dashboard-overview-container">
           <MobileDropdown showStatus={showMobileDropdown} route={route} closeMenu={closeMobileMenu} />
           <div className="upper-overview-card">
@@ -180,45 +163,6 @@ const Userdashboardhomepage = ({route}) => {
         <div className="dashboard-chart-container">
           <TeslaWidget />
         </div>
-        
-        {userData && dailyTrades.length !== 0 ? 
-          <div className="page-swiper-wrapper trans-page">
-          <div className="page-header">
-              <h3>checkout your Daily trade logs</h3>
-              <h2>Daily trade logs</h2>
-              <p>we keep track of all the trades taken by your trader daily</p>
-          </div>
-          <div className="transaction-container no-ref">
-            <table>
-                <thead>
-                  <tr>
-                    <td>trade pair</td>
-                    <td>amount</td>
-                    <td>type</td>
-                    <td>date</td>
-                  </tr>
-                </thead>
-                <tbody>
-                  {
-                    dailyTrades.map(refer =>
-                      <tr className='tr'>
-                        <td>{refer.pair}</td>
-                        <td>$ {refer.amount} USD</td>
-                        <td className={`${refer.tradeType === 'profit' ? 'profit' : 'loss'}`}> {refer.tradeType}</td>
-                        <td>{refer.date}</td>
-                      </tr>
-                    )
-                  }
-                </tbody>
-              </table>
-              </div>
-            </div>
-          :
-            <div className="empty-page home-empty-page">
-              <img src="/preview.gif" alt="" className='empty-img dash-empty-img'/>
-              <p>Your Trader has not placed any trades for your account Today. Trades taken by your trader  today would be displayed here when available.</p> 
-            </div>
-      }
     </section>
     </main>
   )

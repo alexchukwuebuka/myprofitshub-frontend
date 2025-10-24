@@ -125,7 +125,7 @@
     align-items: center;
     justify-content: space-between;
     flex-direction: column;
-    border: 2px solid rgb(15, 31, 89);
+    border: 2px solid var(--color-variant);
 }
 .upper-overview-card{
     width: 100%;
@@ -165,7 +165,7 @@
 }
 .usd-btn{
     padding: 5px 15px;
-    background-color: rgb(15, 31, 89);
+    background-color: var(--color-variant);
     color: white;
     border-radius: 15px;
     display: flex;
@@ -207,7 +207,7 @@
 .user-deposit-btn {
     display: inline-block;
     border-radius: 15px;
-    background-color: rgb(15, 31, 89);
+    background-color: rgb(2, 80, 99);
     border: none;
     color: #FFFFFF;
     text-align: center;
@@ -254,13 +254,13 @@
 
 .lower-overview-card{
     width: 45%;
-    border: 1px solid rgb(15, 31, 89);
+    border: 1px solid rgb(2, 80, 99);
     border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 20px 10px;
-    background-color: rgb(15, 31, 89);
+    background-color: rgb(2, 80, 99);
 }
 .lower-card-icon-container{
     width: 20%;
@@ -426,7 +426,7 @@
 }
 .notification-counter{
     position: absolute;
-    background-color: red;
+    background-color: var(--color-variant);
     color: white;
     font-family: 'Poppins';
     display: flex;

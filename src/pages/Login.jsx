@@ -104,12 +104,12 @@ const Login = ({route}) => {
                     e.preventDefault()
                     login()
                     }}>
-          <img src="/vaultmirrowlogo5.png" alt="" className="login-logo" onClick={() => {
+          <img src="/myprofitshublogo2.png" alt="" className="login-logo" onClick={() => {
             navigate('/')
           }} />
           <div class="title_container">
             <p class="titles">Login to your Account</p>
-            <span class="subtitle">Welcome to Vaultmirror, login and enjoy the best investment experience.</span>
+            <span class="subtitle">Welcome to Myprofitshub, login and enjoy the best investment experience.</span>
           </div>
           <br/>
           <div class="input_containers">

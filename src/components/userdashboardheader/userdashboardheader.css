@@ -11,7 +11,7 @@
     height: auto;
     min-height: 100vh;
     background-color: var(--primary-color);
-    border-right: 1px dotted #252525;
+    border-right: 1px dotted rgb(3, 118, 133);
     align-self: flex-start;
     flex-direction: column;
     overflow: auto;
@@ -37,13 +37,13 @@
     cursor: pointer;
     border-radius: 10px;
     margin: 5px 0px;
-    background-color: rgb(10, 16, 26);
+    background-color: rgb(3, 27, 30);
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 .dashboard-links a{
-    color: rgb(203, 203, 203);
+    color: rgb(227, 227, 227);
     width: 75%;
     font-size: .9rem;
 }
@@ -59,7 +59,7 @@
 }
 
 .dashboard-svg-container svg{
-    color: rgb(73, 103, 178);
+    color: var(--color-variant);
     font-size:1.5rem ;
 }
 .dashboard-logo-container{

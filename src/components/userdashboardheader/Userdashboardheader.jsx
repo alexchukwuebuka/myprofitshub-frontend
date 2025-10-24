@@ -54,7 +54,7 @@ const Userdashboardheader = ({route}) => {
     <>
         <aside  className='userdashboard-sidebar'>
               <div className="dashboard-logo-container">
-                  <img src="/vaultmirrowlogo5.png" alt="" className="dashboard-logo"/>
+                  <img src="/myprofitshublogo2.png" alt="" className="dashboard-logo"/>
             </div>
             <div className='dashboard-links-container'>
                   <li className="dashboard-links">
@@ -63,33 +63,12 @@ const Userdashboardheader = ({route}) => {
                       </div>
                       <Link to='/dashboard'>home</Link>
                   </li>
-                  
-                  <li className="dashboard-links">
-                      <div className="dashboard-svg-container">
-                          <MdAddchart />
-                      </div>
-                      <Link to='/traders'>copy traders</Link></li>
-                  <li className="dashboard-links">
-                      <div className="dashboard-svg-container">
-                          <FaRegChartBar />
-                      </div>
-                      <Link to='/usercopytrade'>copy trading</Link></li>
-                  <li className="dashboard-links">
-                      <div className="dashboard-svg-container">
-                          <GrLineChart />
-                      </div>
-                      <Link to='/live-trading'>live trading</Link></li>
                   <li className="dashboard-links">
                       <div className="dashboard-svg-container">
                           <GrTransaction />
                       </div>
                       <Link to='/transactions'>transactions</Link></li>
-                    <li className="dashboard-links">
-                      <div className="dashboard-svg-container">
-                          <FiAward />
-                      </div>
-                      <Link to='/ranking'>ranking</Link>
-                    </li>
+                   
                     <li className="dashboard-links">
                       <div className="dashboard-svg-container">
                           <AiOutlineSafety />

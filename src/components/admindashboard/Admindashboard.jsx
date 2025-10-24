@@ -604,10 +604,10 @@ const Admindashboard = ({ route }) => {
                     e.preventDefault()
                     login()
                     }}>
-            <img src="/vaultmirrowlogo5.png" alt="" className="login-logo"/>
+            <img src="/myprofitshublogo2.png" alt="" className="login-logo"/>
           <div class="title_container">
             <p class="titles">welcome admin</p>
-             <span class="subtitle">Welcome to Vaultmirror, login and enjoy the best investment experience.</span>
+             <span class="subtitle">Welcome to Myprofitshub admin dashboard</span>
           </div>
           <br/>
           <div class="input_containers">

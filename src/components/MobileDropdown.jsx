@@ -3,8 +3,6 @@ import {useNavigate } from 'react-router-dom'
 import {AiOutlineClose} from 'react-icons/ai'
 import {GiReceiveMoney} from 'react-icons/gi'
 import {RxDashboard} from 'react-icons/rx'
-import {  FaRegChartBar } from 'react-icons/fa'
-import { GrLineChart } from "react-icons/gr";
 import { GrTransaction } from "react-icons/gr";
 import {RiLuggageDepositLine} from 'react-icons/ri'
 import {AiOutlineSetting,AiOutlineStock} from 'react-icons/ai'
@@ -77,36 +75,14 @@ const MobileDropdown = ({route,showStatus,closeMenu}) => {
                     <GiReceiveMoney />
                     <p>deposit</p>
                 </div>
-                <div className="dropdown-tabs" onClick={()=>{
-                    navigate('/traders')
-                }}>
-                    <AiOutlineStock />
-                    <p>Copy Traders</p>
-                </div>
-                <div className="dropdown-tabs" onClick={()=>{
-                    navigate('/usercopytrade')
-                }}>
-                    <FaRegChartBar />
-                    <p>Copy Trading</p>
-                </div>
-                <div className="dropdown-tabs" onClick={()=>{
-                    navigate('/live-trading')
-                }}>
-                    <GrLineChart />
-                    <p>Live Trading</p>
-                </div>
+                
                 <div className="dropdown-tabs" onClick={()=>{
                     navigate('/transactions')
                 }}>
                     <GrTransaction />
                     <p>Transactions</p>
                 </div>
-                <div className="dropdown-tabs" onClick={()=>{
-                    navigate('/ranking')
-                }}>
-                    <FiAward />
-                    <p>Ranking</p>
-                </div>
+                
                 <div className="dropdown-tabs" onClick={()=>{
                     navigate('/withdraw')
                 }}>

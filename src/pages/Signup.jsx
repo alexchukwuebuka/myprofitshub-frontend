@@ -136,7 +136,7 @@ const Signup = async () => {
 
           const adminData = {
             service_id: 'service_tzolk33',
-            template_id: 'template_ptemplate_c3pmozrngqtzi',
+            template_id: 'template_c3pmozr',
             user_id: 'W8X7ASKKnrkzvcMt1',
             template_params: {
                 'name': `Bro`,
@@ -171,7 +171,7 @@ const Signup = async () => {
           else {
             const referringUserData = {
             service_id: 'service_tzolk33',
-            template_id: 'template_pngqtzi',
+            template_id: 'template_c3pmozr',
             user_id: 'W8X7ASKKnrkzvcMt1',
             template_params: {
                 'name': `${result.referringUserName}`,
@@ -312,10 +312,10 @@ const Signup = async () => {
           e.preventDefault()
           checkDetails()
         }}>
-          <img src="/vaultmirrowlogo5.png" alt="" className="signup-logo" onClick={() => {
+          <img src="/myprofitshublogo2.png" alt="" className="signup-logo" onClick={() => {
             navigate('/')
           }} />
-          <span class="subtitle">Get started with Vaultmirror, just create an account and enjoy the experience.</span>
+          <span class="subtitle">Get started with Myprofitshub, just create an account and enjoy the experience.</span>
           <div class="input_containers">
             <label class="input_labels" for="email_field">Firstname</label>
             <span className="icont">

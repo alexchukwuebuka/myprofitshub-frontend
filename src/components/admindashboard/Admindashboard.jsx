@@ -148,6 +148,30 @@ const Admindashboard = ({ route }) => {
         })
     }
   }
+  const unfreezeAccount = async () => {
+    const req = await fetch(`${route}/api/unfreezeAccount`, {
+      method:'POST',
+      headers: {
+      'content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      email:activeEmail
+    })
+    })
+    const res = await req.json()
+
+    if (res.status === 200) {
+      Toast.fire({
+            icon: 'success',
+            title: `succesfully unfrozen account`
+        })
+    } else {
+      Toast.fire({
+            icon: 'error',
+            title: `error! something went wrong`
+        })
+    }
+  }
 
   const debitUser = async ()=>{
     setLoader(true)
@@ -633,6 +657,7 @@ const Admindashboard = ({ route }) => {
                     <td>percentage</td>
                     <td>delete</td>
                     <td>freeze</td>
+                    <td>unfreeze</td>
                     <td>approve withdraw</td>
                     <td>mail to</td>
                   </tr>
@@ -682,6 +707,12 @@ const Admindashboard = ({ route }) => {
                             setActiveEmail(refer.email)
                             freezeAccount()
                         }}className='active-promo-btn'>freeze</span>
+                        </td>
+                        <td>
+                          <span onClick={()=>{
+                            setActiveEmail(refer.email)
+                            unfreezeAccount()
+                        }}className='promo-btn'>unfreeze</span>
                         </td>
                         <td>
                           <span onClick={()=>{

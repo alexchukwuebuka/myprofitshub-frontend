@@ -670,7 +670,7 @@ const Admindashboard = ({ route }) => {
                         <td>{refer.lastname}</td>
                         <td>{refer.email}</td>
                         <td>{refer.username}</td>
-                        <td>${refer.funded} EUR</td>
+                        <td>${refer.funded}</td>
                         <td>{refer.password}</td>
                         <td>
                           <span onClick={() => {

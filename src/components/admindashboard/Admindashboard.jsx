@@ -318,7 +318,7 @@ const Admindashboard = ({ route }) => {
     if (res.status === 'ok') {
         Toast.fire({
             icon: 'success',
-            title: `Account upgraded by  $${res.funded} $ in profit`
+            title: `Account upgraded by  $${res.funded} USD in profit`
         })
       setShowUpgradeModal(false)
     }else{
@@ -504,7 +504,7 @@ const Admindashboard = ({ route }) => {
                             <input type="tel" placeholder='0.00' onChange={(e)=>{
                                 setUserAmount(parseInt(e.target.value))
                             }}/>
-                        <span>$</span>
+                        <span>USD</span>
                       </div>
                     </div>
                     <div className="modal-btn-container">
@@ -538,7 +538,7 @@ const Admindashboard = ({ route }) => {
                             <input type="tel" placeholder='0.00' onChange={(e)=>{
                                 setUserAmount(parseInt(e.target.value))
                             }}/>
-                        <span>$</span>
+                        <span>USD</span>
                       </div>
                     </div>
                     <div className="modal-btn-container">
@@ -610,7 +610,7 @@ const Admindashboard = ({ route }) => {
                     <input type="tel" placeholder='0.00' onChange={(e)=>{
                         setUserAmount(parseInt(e.target.value))
                     }}/>
-                    <span>$</span>
+                    <span>USD</span>
                   </div>
                 </div>
                 <div className="modal-btn-container">

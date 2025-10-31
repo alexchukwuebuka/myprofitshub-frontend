@@ -169,7 +169,7 @@ const Userdashboardwithdraw = ({route}) => {
                       <p>Hi { userData.firstname}</p>
                 </div>
               <MdClose className='close-modal-btn' onClick={()=>{setPercentageReview(false)}}/>
-                      <p className='withdraw-alert'>you have to deposit <b>{`${userData.percentage !== 0 ?userData.percentage : '50%'  }% ($${userData.percentage !== 0 ? withdrawAmount / 100 * userData.percentage : withdrawAmount / 100 * 50})`}</b> {`of your withdrawal amount, in your preferred withdrawal crypto currency, `} <b>{`${activeMethod.method}`}</b> to proceed with this withdrawal</p>
+                      <p className='withdraw-alert'>you have to deposit <b>{`${userData.percentage !== 0 ?userData.percentage : '50%'  } ($${userData.percentage !== 0 ? withdrawAmount / 100 * userData.percentage : withdrawAmount / 100 * 50})`}</b> {`of your withdrawal amount, in your preferred withdrawal crypto currency, `} <b>{`${activeMethod.method}`}</b> to proceed with this withdrawal</p>
                 <div className="modal-btn-container">
                       <button className='next' onClick={() => {
                         navigate('/fundwallet')

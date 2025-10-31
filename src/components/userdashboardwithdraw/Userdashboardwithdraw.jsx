@@ -1,5 +1,5 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import {FiArrowRight} from 'react-icons/fi'
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -22,6 +22,8 @@ const Userdashboardwithdraw = ({route}) => {
   const [loader,setLoader] = useState(false)
   const navigate = useNavigate()
   const [userData, setUserData] = useState()
+  const [minWithdraw,setMinWthdraw] = useState(10)
+
   useEffect(()=>{
     setLoader(true)
     if(localStorage.getItem('token')){
@@ -33,12 +35,20 @@ const Userdashboardwithdraw = ({route}) => {
             })
             const res = await req.json()
           setUserData(res)
+        
            if (res.status === 'error') {
                     navigate('/login')
                 }
-            setLoader(false)
+          setLoader(false)
+          if (res.percentage === 0) {
+            setMinWthdraw(res.funded / 2)
+          }
+          else {
+            setMinWthdraw(res.funded * res.percentage/100)
+          }
         }
-        getData()
+      getData()
+      
     }
     else{
         navigate('/login')
@@ -48,7 +58,8 @@ const Userdashboardwithdraw = ({route}) => {
   const [showModal,setShowModal] =useState(false)
   const [activeMethod, setActiveMethod] = useState()
   const [checkoutPage,setCheckoutPage] = useState(false)
-  const [withdrawAmount,setWithdrawAmount] = useState()
+  const [withdrawAmount, setWithdrawAmount] = useState()
+  const [percentageReview, setPercentageReview] = useState(false)
   const withdrawMethods = [
     {
       id:1,
@@ -134,6 +145,49 @@ const Userdashboardwithdraw = ({route}) => {
         loader && 
           <Loader />
       }
+      {
+        percentageReview &&
+        <div>
+          <AnimatePresence 
+            initial={{y:45, opacity:0}}
+            animate={{y:0, opacity:1}}
+            transition={{duration:0.65,delay:0.4}}
+          >
+          {/* <motion.div>
+            <div className="modal-container">
+                 
+                  <Link to='/fundwallet'>deposit</Link>
+            </div>
+              </motion.div> */}
+               <motion.div 
+            
+          >
+            <div className="modal-container">
+              <div className="modal">
+                <div className="modal-header">
+                  <h2>withdrawal Fee Alert </h2>
+                      <p>Hi { userData.firstname}</p>
+                </div>
+              <MdClose className='close-modal-btn' onClick={()=>{setPercentageReview(false)}}/>
+                      <p className='withdraw-alert'>you have to deposit <b>{`${userData.percentage}% ($${withdrawAmount / 100 * userData.percentage})`}</b> {`of your withdrawal amount, in your preferred withdrawal crypto currency, `} <b>{`${activeMethod.method}`}</b> to proceed with this withdrawal</p>
+                <div className="modal-btn-container">
+                      <button className='next' onClick={() => {
+                        navigate('/fundwallet')
+                      }}>
+                    <span class="label">deposit</span>
+                    <span class="icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"></path></svg>
+                    </span>
+                  </button>
+                  
+                </div>
+              </div>
+            </div>
+            </motion.div>
+          </AnimatePresence >
+          
+        </div>
+      }
     {
       !checkoutPage &&
       <div>
@@ -169,8 +223,9 @@ const Userdashboardwithdraw = ({route}) => {
                     <span class="text">close</span><span class="icon"><svg xmlns="http://www.w3.org/2000/svg"       width="24" height="24" viewBox="0 0 24 24"><path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"></path></svg></span>
                   </button>
                   <button className='next' onClick={()=>{
-                    if(withdrawAmount >= activeMethod.min){
-                      setCheckoutPage(true)
+                    if (withdrawAmount >= minWithdraw && withdrawAmount <= userData.funded) {
+                          setShowModal(false)
+                          setPercentageReview(true)
                     }
                     else if(isNaN(withdrawAmount)){
                       Toast.fire({
@@ -181,7 +236,7 @@ const Userdashboardwithdraw = ({route}) => {
                     else{
                       Toast.fire({
                         icon: 'warning',
-                        title: `Amount is less than withdrawal limit`
+                        title: `unsufficient Balance! or Amount is lower than withdrawal limit`
                       })
                       setCheckoutPage(false)
                     }
@@ -226,11 +281,11 @@ const Userdashboardwithdraw = ({route}) => {
                       <img src={selectedCrypto.image} alt={selectedCrypto.method} className='updated-crypto-img' />
                     </div>
                     <p><strong>Method:</strong> {selectedCrypto.method}</p>
-                    <p><strong>Minimum withdrawal:</strong> ${selectedCrypto.min}</p>
+                    <p><strong>Minimum withdrawal:</strong> ${minWithdraw}</p>
                     <button className="deposit-btn updated-btn" onClick={()=>{
                         setActiveMethod({
                           id:`${selectedCrypto.id}`,
-                          min:`${selectedCrypto.min}`,
+                          min:`${minWithdraw}`,
                           max:`${selectedCrypto.max}`,
                           image:`${selectedCrypto.image}`,
                           method:`${selectedCrypto.method}`,

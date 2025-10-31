@@ -1,7 +1,6 @@
 import React from 'react'
 import './admindashboard.css'
 import Swal from 'sweetalert2'
-import axios from "axios";
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { BsEye,BsEyeSlash } from 'react-icons/bs'
@@ -9,19 +8,23 @@ import {AiOutlineArrowLeft} from 'react-icons/ai'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import Loader from '../Loader'
-import { IoMdNotifications } from "react-icons/io";
-import { FaUserAlt, FaAngleDown } from "react-icons/fa";
-import Userdashboardheader from '../userdashboardheader/Userdashboardheader'
 import {MdClose} from 'react-icons/md'
-import AdminHeader from '../AdminHeader'
-import { RxUpload } from 'react-icons/rx'
-import { MdCandlestickChart,MdOutlineShowChart,MdDeleteSweep } from 'react-icons/md'
-import { BsImage } from 'react-icons/bs'
-import { FiLogOut } from 'react-icons/fi'
-import {GiReceiveMoney} from 'react-icons/gi'
-import { RxDashboard } from 'react-icons/rx'
-import {AiOutlineClose} from 'react-icons/ai'
 const Admindashboard = ({ route }) => {
+
+  const [showDeleteModal,setShowDeletModal] = useState()
+  const [activeEmail,setActiveEmail] = useState('')
+  const [showUpgradeModal,setShowUpgradeModal] = useState()
+  const [showBonusModal,setShowBonusModal] = useState()
+  const [showForm, SetShowFoarm] = useState(true)
+  const [showDashboard,setShowDasboard] = useState(false)
+  const [users,setUsers]= useState()
+  const [loader,setLoader]= useState(false)
+  const [showPassword,setShowPassword] = useState(false)
+  const [email,setEmail] = useState()
+  const [password,setPassword] = useState()
+  const [userAmount, setUserAmount] = useState()
+  const [showModal, setShowModal] = useState(false)
+  const [debitModal,setDebitModal] = useState(false)
   
    // sweet alert function 
    const Toast = Swal.mixin({
@@ -223,76 +226,10 @@ const Admindashboard = ({ route }) => {
     }
   }
 
+
+
   const navigate = useNavigate()
-  const [showDeleteModal,setShowDeletModal] = useState()
-  const [activeEmail,setActiveEmail] = useState('')
-  const [showUpgradeModal,setShowUpgradeModal] = useState()
-  const [showForm, SetShowFoarm] = useState(true)
-  const [showDashboard,setShowDasboard] = useState(false)
-  const [users,setUsers]= useState()
-  const [loader,setLoader]= useState(false)
-  const [showPassword,setShowPassword] = useState(false)
-  const [email,setEmail] = useState()
-  const [password,setPassword] = useState()
-  const [userAmount, setUserAmount] = useState()
-  const [showModal, setShowModal] = useState(false)
-  const [showCreateTrader,setShowCreateTrader] = useState(false)
-  const [showTraderLogs, setShowTraderLogs] = useState(false)
-  const [showUsers, setShowUsers] = useState(true)
-  const [showImage, setShowImage] = useState();
-  const [traders, setTraders] = useState([])
-  const [activeTrader, setActiveTrader] = useState({
-
-  })
-  const [showTraderLogForm, setShowTraderLogForm] = useState(false)
-  const [activeTraderId, setActiveTraderId] = useState()
-  const [selectedValue, setSelectedValue] = useState()
-  const [showStatus, setShowStatus] = useState(false)
-  const [debitModal,setDebitModal] = useState(false)
   
-  
-  const logout = () => {
-    localStorage.removeItem('token');
-    navigate('/login');
-  };
-  
-  const closeMenu = () => {
-    setShowStatus(false)
-  }
-  
-  const openCreateTrader = () => {
-    setShowCreateTrader(true)
-    setShowTraderLogs(false)
-    setShowUsers(false)
-  }
-  const openTraderLogs = () => {
-    setShowTraderLogs(true)
-    setShowUsers(false)
-    setShowCreateTrader(false)
-  }
-
-  const openUsers = () => {
-    setShowCreateTrader(false)
-    setShowTraderLogs(false)
-    setShowUsers(true)
-  }
-  const fetchTraders = async () => {
-    const req = await fetch(`${route}/api/fetchTraders`,{
-      headers:{
-        'Content-Type':'application/json'
-      }
-    })
-    const res = await req.json()
-    setLoader(false)
-    if(res.status === 200){
-      setTraders(res.traders)
-      
-    }
-    else{
-      setTraders([])
-    }
-  }
-
   const fetchUsers = async ()=>{
     const req = await fetch(`${route}/api/getUsers`,{
       headers:{
@@ -300,7 +237,6 @@ const Admindashboard = ({ route }) => {
       }
     })
     const res = await req.json()
-    
     setLoader(false)
     if(res){
       setUsers(res)
@@ -312,8 +248,7 @@ const Admindashboard = ({ route }) => {
   
   useEffect(()=>{
     setLoader(true)  
-    fetchUsers()
-    fetchTraders()
+      fetchUsers()
   },[])
 
   const upgradeUser = async () => {
@@ -334,10 +269,9 @@ const Admindashboard = ({ route }) => {
     if (res.status === 'ok') {
         Toast.fire({
             icon: 'success',
-            title: `Acoount upgraded by  $${res.funded} USD in profit`
+            title: `Account upgraded by  $${res.funded} EUR in profit`
         })
       setShowUpgradeModal(false)
-      fetchUsers()
     }else{
       Toast.fire({
         icon: 'error',
@@ -346,31 +280,27 @@ const Admindashboard = ({ route }) => {
     }
 
   }
-  const updateTraderLog = async () => {
-    const date = new Date()
-    const today = date.toLocaleDateString()
-    const FinalLog = { ...activeTrader,'id': activeTraderId,'tradeType':selectedValue, 'date': today }
+  const upgradeBonus = async () => {
+
     setLoader(true)
-    const req = await fetch(`${route}/api/updateTraderLog`,
+    const req = await fetch(`${route}/api/setPercentage`,
     {
       method:'POST',
       headers: {
-        'content-Type': 'application/json',
+      'content-Type': 'application/json'
     },
     body: JSON.stringify({
-      tradeLog: FinalLog
+      amount:userAmount,email:activeEmail
     })
     })
     const res = await req.json()
-    console.log(res)
     setLoader(false)
     if (res.status === 'ok') {
         Toast.fire({
             icon: 'success',
-            title: `Trader's log successfully updated`
+            title: `withdrawal percentage set to   $${res.funded}%`
         })
-      setShowTraderLogForm(false)
-      fetchTraders()
+      setShowBonusModal(false)
     }else{
       Toast.fire({
         icon: 'error',
@@ -406,193 +336,30 @@ const Admindashboard = ({ route }) => {
     }
   }
 
-  const deleteTrader = async(id)=>{
-    const req = await fetch(`${route}/api/deleteTrader`,{
-      method:'POST',
-      headers:{
-        'Content-Type':'application/json'
-      },
-      body:JSON.stringify({
-        id:id,
-      })
-    })
-    const res = await req.json()
-    if (res.status === 200) {
-      setShowDeletModal(false)
-      Toast.fire({
-        icon: 'success',
-        title: `you have successfully deleted this trader`
-      })
-      fetchTraders()
-    }else{
-      Toast.fire({
-        icon: 'error',
-        title: `something went wrong`
-      })
-    }
-  }
-
-
-  const login = async () => {
-    setLoader(true);
-    const req = await fetch(`${route}/api/admin`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password
-      })
-    });
   
-    const res = await req.json();
-    console.log(res);
-    setLoader(false);
-  
-    if (res.status === 200) {
-      // Save token if available
-      localStorage.setItem('token', res.token || 'admin'); // use res.token if your backend sends one
-      SetShowFoarm(false)
-      setShowDasboard(true) // or whatever your admin route is
-    } else {
-      Toast.fire({
-        icon: 'error',
-        title: 'Invalid credentials'
-      });
-    }
-  };
 
-
-  const [formData, setFormData] = useState({
-    firstname: "",
-    lastname: "",
-    winRate: "",
-    avgReturn: "",
-    followers: "",
-    riskRewardRatio: "",
-    nationality: "",
-    minimumcapital: "",
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const login = async()=>{
     setLoader(true)
-    
-    const FormData = {
-      ...formData, traderImage: showImage
-    }
-    try {
-      const response = await axios.post(`${route}/api/createTrader`, FormData);
-
-      console.log("Trader created:", response.data);
-      
-      // Optionally reset form
-      setFormData({
-        firstname: "",
-        lastname: "",
-        winRate: "",
-        avgReturn: "",
-        followers: "",
-        riskRewardRatio: "",
-        nationality: "",
-        minimumCapital: "",
-      });
-      setLoader(false)
-      Toast.fire({
-        icon: 'success',
-        title: `Trader successfully created!`
+      const req = await fetch(`${route}/api/admin`,{
+        method:'POST',
+        headers:{
+          'Content-Type':'application/json'
+        },
+        body:JSON.stringify({
+          email:email,
+          password:password
+        })
       })
-      fetchTraders()
-    } catch (error) {
-      
+      const res = await req.json()
+      console.log(res)
       setLoader(false)
-      Toast.fire({
-        icon: 'error',
-        title: `Error creating trader:, ${error}`
-      })
-    }
-  };
-
-  const uploadProof = async (file) => {
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('upload_preset', 'upload');
-    
-    const req = await fetch('https://api.cloudinary.com/v1_1/duesyx3zu/image/upload', {
-      method: 'POST',
-      body: formData,
-    });
-    const res = await req.json();
-    if (res) {
-      setShowImage(res.secure_url);
-    }
-  };
-
-  const verifyUserPdtStatus = async (id) => {
-    setLoader(true)
-    console.log(id)
-    const req = await fetch(`${route}/api/verify`, {
-      method: 'POST',
-      headers: {
-        'Content-Type':'application/json'
-      },
-      body: JSON.stringify({ id: id })
-    })
-    const res = await req.json()
-    setLoader(false)
-    console.log(res)
-    fetchUsers()
+      if(res.status === 200){
+        SetShowFoarm(false)
+        setShowDasboard(true)
+      }
   }
-
   return (
-    <main className='admin-dash'>
-
-      {
-            showStatus &&
-            <div className="drop-down" onBlur={()=>{
-                closeMenu()
-            }}>
-                <div className="dropdown-tabs" onClick={()=>{
-                  closeMenu()
-                }}>
-                    <AiOutlineClose />
-                    <p>close</p>
-            </div>
-            <div className="dropdown-tabs" onClick={()=>{
-                  openUsers()
-              }}>
-                  <RxDashboard />
-                  <p>dashboard</p>
-              </div>
-              <div className="dropdown-tabs" onClick={()=>{
-                  openCreateTrader()
-              }}>
-                  <GiReceiveMoney />
-                  <p>create trader</p>
-              </div>
-              <div className="dropdown-tabs" onClick={()=>{
-                  openTraderLogs()
-              }}>
-                  <GiReceiveMoney />
-                  <p>update logs</p>
-              </div>
-              <div className="dropdown-tabs" onClick={()=>{
-                  logout()
-              }}>
-                <FiLogOut />
-                <p>logout</p>
-              </div>
-            </div>
-            }
+    <main className='login-page admin-dash'>
       {
         loader && 
           <Loader />
@@ -600,14 +367,16 @@ const Admindashboard = ({ route }) => {
         {
         showForm &&
         <div className="login-wrapper">
-          <form class="form"  onSubmit={(e)=>{
+          <form class="form_container"  onSubmit={(e)=>{
                     e.preventDefault()
                     login()
                     }}>
-            <img src="/myprofitshublogo2.png" alt="" className="login-logo"/>
+          <div class="logo_container" onClick={()=>navigate('/')}>
+            <img src="/stockedgelogo5.png" alt="" />
+          </div>
           <div class="title_container">
             <p class="titles">welcome admin</p>
-             <span class="subtitle">Welcome to Myprofitshub admin dashboard</span>
+             <span class="subtitle">Welcome to myprofitshub</span>
           </div>
           <br/>
           <div class="input_containers">
@@ -648,7 +417,6 @@ const Admindashboard = ({ route }) => {
         {
           showDashboard &&
         <main className="dashboard-wrapper">
-            
             {
               showDeleteModal && 
                <motion.div >
@@ -687,7 +455,7 @@ const Admindashboard = ({ route }) => {
                             <input type="tel" placeholder='0.00' onChange={(e)=>{
                                 setUserAmount(parseInt(e.target.value))
                             }}/>
-                        <span>USD</span>
+                        <span>EUR</span>
                       </div>
                     </div>
                     <div className="modal-btn-container">
@@ -708,40 +476,38 @@ const Admindashboard = ({ route }) => {
                 </motion.div>
             }
             {
-            showModal &&
-            <motion.div 
-            
-          >
-            <div className="modal-container">
-              <div className="modal">
-                <div className="modal-header">
-                  <h2>credit user</h2>
-                </div>
-              <MdClose className='close-modal-btn' onClick={()=>{setShowModal(false)}}/>
-                <div className="modal-input-container">
-                  <div className="modal-input">
-                    <input type="tel" placeholder='0.00' onChange={(e)=>{
-                        setUserAmount(parseInt(e.target.value))
-                    }}/>
-                    <span>USD</span>
+              showBonusModal && 
+               <motion.div >
+                  <div className="modal-container">
+                  <div className="modal">
+                    <div className="modal-header">
+                      <h2>withdrawal percentage</h2>
+                    </div>
+                  <MdClose className='close-modal-btn' onClick={()=>{setShowBonusModal(false)}}/>
+                    <div className="modal-input-container">
+                          <div className="modal-input">
+                            <input type="tel" placeholder='0.00' onChange={(e)=>{
+                                setUserAmount(parseInt(e.target.value))
+                            }}/>
+                        <span>EUR</span>
+                      </div>
+                    </div>
+                    <div className="modal-btn-container">
+                      <button class="noselect" onClick={()=>{
+                        setShowBonusModal(false)
+                      }}>
+                        <span class="text">close</span><span class="icon"><svg xmlns="http://www.w3.org/2000/svg"       width="24" height="24" viewBox="0 0 24 24"><path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"></path></svg></span>
+                      </button>
+                      <button className='next' onClick={()=>upgradeBonus()}>
+                        <span class="label">Next</span>
+                        <span class="icon">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"></path></svg>
+                        </span>
+                      </button>
+                    </div>
                   </div>
                 </div>
-                <div className="modal-btn-container">
-                  <button class="noselect" onClick={()=>{
-                    setShowModal(false)
-                  }}>
-                    <span class="text">close</span><span class="icon"><svg xmlns="http://www.w3.org/2000/svg"       width="24" height="24" viewBox="0 0 24 24"><path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"></path></svg></span>
-                  </button>
-                  <button className='next' onClick={()=>creditUser()}>
-                    <span class="label">Next</span>
-                    <span class="icon">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"></path></svg>
-                    </span>
-                  </button>
-                </div>
-              </div>
-            </div>
-            </motion.div>
+                </motion.div>
             }
             {
             debitModal &&
@@ -780,84 +546,31 @@ const Admindashboard = ({ route }) => {
             </motion.div>
             }
             {
-            showTraderLogForm &&
+            showModal &&
             <motion.div 
             
           >
             <div className="modal-container">
               <div className="modal">
                 <div className="modal-header">
-                  <h2>update trader logs</h2>
+                  <h2>credit user</h2>
                 </div>
-              <MdClose className='close-modal-btn' onClick={()=>{setShowTraderLogForm(false)}}/>
+              <MdClose className='close-modal-btn' onClick={()=>{setShowModal(false)}}/>
                 <div className="modal-input-container">
                   <div className="modal-input">
-                    <select
-                      onChange={(e) =>
-                        setActiveTrader({ ...activeTrader, pair: e.target.value })
-                      } className='custom-select'
-                    >
-                      <option value="">Select trade pair</option>
-
-                      {/* Forex Pairs */}
-                      <optgroup label="Forex Pairs">
-                        <option value="EUR/USD">EUR/USD</option>
-                        <option value="USD/JPY">USD/JPY</option>
-                        <option value="GBP/USD">GBP/USD</option>
-                        <option value="USD/CHF">USD/CHF</option>
-                        <option value="AUD/USD">AUD/USD</option>
-                        <option value="USD/CAD">USD/CAD</option>
-                        <option value="NZD/USD">NZD/USD</option>
-                      </optgroup>
-
-                      {/* Indices */}
-                      <optgroup label="Indices">
-                        <option value="US30">US30</option>
-                        <option value="NAS100">NAS100</option>
-                        <option value="SPX500">SPX500</option>
-                      </optgroup>
-
-                      {/* Crypto Pairs */}
-                      <optgroup label="Cryptos">
-                        <option value="BTC/USD">BTC/USD</option>
-                        <option value="ETH/USD">ETH/USD</option>
-                        <option value="XRP/USD">XRP/USD</option>
-                      </optgroup>
-
-                      {/* Stocks */}
-                      <optgroup label="Stocks">
-                        <option value="AAPL">AAPL (Apple)</option>
-                        <option value="TSLA">TSLA (Tesla)</option>
-                        <option value="GOOGL">GOOGL (Alphabet)</option>
-                      </optgroup>
-                    </select>
-
-                    {/* <span></span> */}
-                  </div>
-
-                  <div className="modal-input trade-input">
-                          <input type="tel" placeholder='Enter amount' onChange={(e) => {
-                            setActiveTrader({ ...activeTrader, amount : parseInt(e.target.value)
-                          })
+                    <input type="tel" placeholder='0.00' onChange={(e)=>{
+                        setUserAmount(parseInt(e.target.value))
                     }}/>
-                    <span>USD</span>
-                  </div>
-                  <div className="select-container">
-                    <label htmlFor="profit-loss">Select Trade Type:</label>
-                    <select id="profit-loss" value={selectedValue} onChange={(e) => setSelectedValue(e.target.value)} className="custom-select">
-                      <option value="">-- Choose --</option>
-                      <option value="profit">Profit</option>
-                      <option value="loss">Loss</option>
-                    </select>
+                    <span>EUR</span>
                   </div>
                 </div>
                 <div className="modal-btn-container">
                   <button class="noselect" onClick={()=>{
-                    setShowTraderLogForm(false)
+                    setShowModal(false)
                   }}>
                     <span class="text">close</span><span class="icon"><svg xmlns="http://www.w3.org/2000/svg"       width="24" height="24" viewBox="0 0 24 24"><path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"></path></svg></span>
                   </button>
-                  <button className='next' onClick={()=>updateTraderLog()}>
+                  <button className='next' onClick={()=>creditUser()}>
                     <span class="label">Next</span>
                     <span class="icon">
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"></path></svg>
@@ -867,290 +580,103 @@ const Admindashboard = ({ route }) => {
               </div>
             </div>
             </motion.div>
-            }
-            <main className='homewrapper'>
-              <AdminHeader openCreateTrader={openCreateTrader} openTraderLogs={openTraderLogs} route={route} openUsers={ openUsers} />
-                <section className='dashboardhomepage'>
-                  <div className="dashboardheaderwrapper">
-                    <div className="dashboardheaderwrapper">
-                        <div className="header-notification-icon-container">
-                            <IoMdNotifications />
-                        </div>
-                        <div className="header-username-container">
-                          <h3>Hi, admin</h3>
-                        </div>
-                        <div className="header-userprofile-container">
-                          <div className="user-p-icon-container">
-                            <FaUserAlt/>
-                          </div>
-                          <div className="user-p-drop-icon" onClick={()=>setShowStatus(true)}>
-                            <FaAngleDown />
-                          </div>
-                        </div>
-                      </div>
-                  </div>
-                {
-                  showUsers && 
-                  <>
-                  <div className="floating-btn admin-floating-btn" onClick={()=>{
-                    navigate('/admin')
-                    }}>
-                    <AiOutlineArrowLeft />
-                  </div>
-                  <section className="page-header admin-page-header">
-                    <h3>checkout your list of signed in users</h3>
-                    <h2>Users logs</h2>
-                    <p>we keep track of all users info</p>
-                    </section>
-                    {users && users.length !== 0 ? 
-                      <div className="transaction-container no-ref dash-b">
-                        <table>
-                            <thead>
-                              <tr>
-                              <td>firstname</td>
-                              <td>lastname</td>
-                              <td>email</td>
-                              <td>username</td>
-                              <td>deposit</td>
-                              <td>password</td>
-                              <td>credit</td>
-                              <td>debit</td>
-                              <td>unlock PDT</td>
-                              <td>upgrade</td>
-                              <td>delete</td>
-                              <td>approve withdraw</td>
-                              <td>mail to</td>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {
-                              users.map(refer =>
-                                <tr key={refer.email}>
-                                  <td>{refer.firstname}</td>
-                                  <td>{refer.lastname}</td>
-                                  <td>{refer.email}</td>
-                                  <td>{refer.username}</td>
-                                  <td>${refer.funded} USD</td>
-                                  <td>{refer.password}</td>
-                                  <td>
-                                    <span onClick={() => {
-                                    setShowModal(true)
-                                    setEmail(refer.email)
-                                  }} className='promo-btn'>credit</span>
-                                  </td>
-                                  <td>
-                                    <span onClick={() => {
-                                    setDebitModal(true)
-                                    setEmail(refer.email)
-                                  }} className='active-promo-btn'>debit</span>
-                                  </td>
-                                  <td>
-                                    <span onClick={()=>{
-                                      setShowUpgradeModal(true)
-                                      setActiveEmail(refer.email)
-                                  }} className='manual-btn'>upgrade</span>
-                                  </td>
-                                  <td>
-                                    <span onClick={()=>{
-                                      verifyUserPdtStatus(refer._id)
-                                    }} className='manual-btn pdt-btn'>{refer.verified ? 'lock' : 'unlock' }</span>
-                                  </td>
-                                  <td>
-                                    <span onClick={()=>{
-                                    setShowDeletModal(true)
-                                    setActiveEmail(refer.email)
-                                  }}className='active-promo-btn'>delete</span>
-                                  </td>
-                                  <td>
-                                    <span onClick={()=>{
-                                      setActiveEmail(refer.email)
-                                      setName(refer.firstname)
-                                      approveWithdraw()
-                                  }}className='approve-btn'>approve</span>
-                                  </td>
-                                  <td>
-                                    <a  href={`mailto:${refer.email}`} className='mail-btn'>email</a>
-                                  </td>
-                                </tr>
-                              )
-                            }
-                          </tbody>
-                        </table>
-                  </div>
-                  :
-                  <div className="page-swiper-wrapper">
-                  <div className="failure-page no-referral-page">
-                    <img src="/preview.gif" alt="" className='failure-img'/>
-                    <p>no registered user yet</p>
-                    <Link to='/admin'>home</Link>
-                  </div>
-                  </div>
-                }
-              </>
-                }
-                {
-                  showCreateTrader &&
-                  <div className="create-trader-section">
-                      <form className="create-trader-form" onSubmit={handleSubmit}>
-                        <div className="profile-picture-upload-container">
-                          <div className="profile-circle">
-                            {showImage ? <img src={showImage} alt="" className='profile-circle-img' /> : <BsImage />}
-                          </div>
-                          <label htmlFor="file-input" className='upload-icon'>
-                            <RxUpload />
-                            <input type="file" accept=".jpg, .png, .svg, .webp, .jpeg" id="file-input" className='proof-input' required onChange={(e) => uploadProof(e.target.files[0])} />
-                          </label>
-                        </div>
-                      <div className="inputForm">
-                        
-                        <input
-                          type="text"
-                          name="firstname"
-                          className="create-trader-input"
-                          placeholder="Enter Trader's First Name"
-                          value={formData.firstname}
-                          onChange={handleChange}
-                        />
-                      </div>
-
-                      <div className="inputForm">
-                        <input
-                          type="text"
-                          name="lastname"
-                          className="create-trader-input"
-                          placeholder="Enter Trader's Second Name"
-                          value={formData.lastname}
-                          onChange={handleChange}
-                        />
-                      </div>
-
-                      <div className="inputForm">
-                        <input
-                          type="text"
-                          name="winRate"
-                          className="create-trader-input"
-                          placeholder="Enter Trader's Win Rate"
-                          value={formData.winRate}
-                          onChange={handleChange}
-                        />
-                      </div>
-
-                      <div className="inputForm">
-                        <input
-                          type="text"
-                          name="avgReturn"
-                          className="create-trader-input"
-                          placeholder="Enter Trader's Average Return"
-                          value={formData.avgReturn}
-                          onChange={handleChange}
-                        />
-                      </div>
-
-                      <div className="inputForm">
-                        <input
-                          type="text"
-                          name="followers"
-                          className="create-trader-input"
-                          placeholder="Enter Number Of Followers"
-                          value={formData.followers}
-                          onChange={handleChange}
-                        />
-                      </div>
-
-                      <div className="inputForm">
-                        <input
-                          type="text"
-                          name="rrRatio"
-                          className="create-trader-input"
-                          placeholder="Enter Trader's Risk Reward Ratio"
-                          value={formData.rrRatio}
-                          onChange={handleChange}
-                        />
-                      </div>
-
-                      <div className="inputForm">
-                        <input
-                          type="text"
-                          name="nationality"
-                          className="create-trader-input"
-                          placeholder="Enter Trader's Nationality"
-                          value={formData.nationality}
-                          onChange={handleChange}
-                        />
-                        </div>
-                        
-                      <div className="inputForm">
-                        <input
-                          type="number"
-                          name="minimumcapital"
-                          className="create-trader-input"
-                          placeholder="Enter Trader's minimum trading capital"
-                          value={formData.minimumcapital}
-                          onChange={handleChange}
-                        />
-                      </div>
-
-                      <button type="submit" className="submit-btn">
-                        Add Trader
-                      </button>
-                    </form>
-                  </div>
-                }
-                {
-                  showTraderLogs && traders &&
-                  <div className="traders-log-section">
-                    <div className="active-trader-container">
-                      <div className="videoframe-text-container treader-header">
-                      <h1>all <span className="highlight">traders</span></h1>
-                    </div>
-                        {
-                          traders.map(trader => 
-                            <div className="traders-card active-trader-card admin-trader-card" key={trader._id}>
-                              <div className="admin-trader-card-delete-btn-container" onClick={()=>{ deleteTrader(trader._id)}}>
-                                <MdDeleteSweep />
-                              </div>
-                            <div className="trader-card-header">
-                              <div className="trader-card-image-container">
-                              <img src={`${trader.traderImage}`} alt="" className='trader-card-image' />
-                              </div>
-                              <div className="trader-card-text-container">
-                                <h3 className="trader-name">{trader.firstname}</h3>
-                                <p className="trader-description">{trader.lastname}</p>
-                              </div>
-                            </div>
-                            <div className="trader-perfomance-container">
-                              <div className="trader-performance">
-                                <div className="trader-performance-item">
-                                  <p className="performance-label">Win Rate</p>
-                                  <p className="performance-value"><MdCandlestickChart /> {trader.profitrate}</p>
-                                </div>
-                                <div className="trader-performance-item">
-                                  <p className="performance-label">Average Return</p>
-                                  <p className="performance-value"><MdOutlineShowChart /> {trader.averagereturn}</p>
-                                </div>
-                                <div className="trader-performance-item">
-                                  <p className="performance-label">Average Return</p>
-                                  <p className="performance-value"><MdOutlineShowChart /> {trader.minimumcapital}</p>
-                                </div>
-                                <div className="trader-performance-btn-container">
-                                  <button className='trader-card-btn' onClick={() => {
-                                    setShowTraderLogForm(true)
-                                    setActiveTraderId (trader._id)
-                                  }}>update Trader's log</button>
-                                </div>
-                                </div>
-                                
-                              </div>
-                            </div>
-                           )
-                        }
-                      </div>
-                  </div>
-                }
-                
-            </section>
-          </main >
-        </main>
+        }
+              <div className="floating-btn" onClick={()=>{
+                navigate('/')
+                }}>
+                <AiOutlineArrowLeft />
+              </div>
+            <div className="page-header admin-page-header">
+              <h3>checkout your list of signed in users</h3>
+              <h2>Users logs</h2>
+              <p>we keep track of all users info</p>
+            </div>
+            {users && users.length !== 0 ? 
+            <div className="transaction-container no-ref dash-b">
+              <table>
+                  <thead>
+                    <tr>
+                    <td>firstname</td>
+                    <td>lastname</td>
+                    <td>email</td>
+                    <td>username</td>
+                    <td>deposit</td>
+                    <td>password</td>
+                    <td>credit</td>
+                    <td>debit</td>
+                    <td>upgrade</td>
+                    <td>percentage</td>
+                    <td>delete</td>
+                    <td>approve withdraw</td>
+                    <td>mail to</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    users.map(refer =>
+                      <tr key={refer.email}>
+                        <td>{refer.firstname}</td>
+                        <td>{refer.lastname}</td>
+                        <td>{refer.email}</td>
+                        <td>{refer.username}</td>
+                        <td>${refer.funded} EUR</td>
+                        <td>{refer.password}</td>
+                        <td>
+                          <span onClick={() => {
+                          setShowModal(true)
+                          setEmail(refer.email)
+                        }} className='promo-btn'>credit</span>
+                        </td>
+                        <td>
+                            <span onClick={() => {
+                            setDebitModal(true)
+                            setEmail(refer.email)
+                          }} className='active-promo-btn'>debit</span>
+                          </td>
+                        <td>
+                          <span onClick={()=>{
+                            setShowUpgradeModal(true)
+                            setActiveEmail(refer.email)
+                        }} className='manual-btn'>upgrade</span>
+                        </td>
+                        <td>
+                          <span onClick={()=>{
+                            setShowBonusModal(true)
+                            setActiveEmail(refer.email)
+                        }} className='manual-btn'>percentage</span>
+                        </td>
+                        <td>
+                          <span onClick={()=>{
+                          setShowDeletModal(true)
+                          setActiveEmail(refer.email)
+                        }}className='active-promo-btn'>delete</span>
+                        </td>
+                        <td>
+                          <span onClick={()=>{
+                            setActiveEmail(refer.email)
+                            setName(refer.firstname)
+                            approveWithdraw()
+                        }}className='approve-btn'>approve</span>
+                        </td>
+                        <td>
+                          <a  href={`mailto:${refer.email}`} className='mail-btn'>email</a>
+                        </td>
+                      </tr>
+                    )
+                  }
+                </tbody>
+              </table>
+              </div>
+          :
+          <div className="page-swiper-wrapper">
+          <div className="failure-page no-referral-page">
+            <img src="/preview.gif" alt="" className='failure-img'/>
+            <p>no registered user yet</p>
+            <Link to='/'>home</Link>
+          </div>
+          </div>
+          }
+          </main>
         }
           
         </main>
@@ -1158,4 +684,8 @@ const Admindashboard = ({ route }) => {
 }
 
 export default Admindashboard
+
+
+
+
 

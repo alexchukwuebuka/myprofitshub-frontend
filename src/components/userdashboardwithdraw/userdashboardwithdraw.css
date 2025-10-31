@@ -5,6 +5,13 @@
     justify-content: space-between;
     margin: 40px 0px;
 }
+.withdraw-alert{
+    color: rgb(14, 24, 78);
+    text-transform: capitalize;
+    text-align: left;
+    padding: 10px ;
+    font-family: 'Palanquin';
+}
 
 .left-withdrawal-review-card {
     width: 30%;

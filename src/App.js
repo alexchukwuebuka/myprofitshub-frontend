@@ -36,8 +36,8 @@ function App() {
     // duration=1200;
     }, [])
 
-    const route = 'https://myprofitshub-backend.vercel.app'
-    // const route = 'http://localhost:5000'
+    // const route = 'https://myprofitshub-backend.vercel.app'
+    const route = 'http://localhost:5000'
   
   return (
     <>

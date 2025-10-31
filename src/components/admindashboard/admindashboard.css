@@ -88,6 +88,8 @@
 .dashboard-wrapper{
     flex-direction: column;
     background-color: black;
+    min-height: 100vh;
+    width: 100%;
 }
 
 .promo-btn,.manual-btn, .active-promo-btn, .approve-btn,.mail-btn{

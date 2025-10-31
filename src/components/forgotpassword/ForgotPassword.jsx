@@ -33,14 +33,14 @@ const ForgotPassword = ({ route }) => {
     const sendMail = async () => {
         setLoader(true)
         const adminData = {
-            service_id: 'service_n41coy6',
-            template_id: 'template_pngqtzi',
-            user_id: '_1vUT8k_p8wQRyQ9L',
+            service_id: 'service_tzolk33',
+            template_id: 'template_c3pmozr',
+            user_id: 'W8X7ASKKnrkzvcMt1',
             template_params: {
                 'name': `User`,
                 'email': `${email}`,
-                'message': `https://www.user-vaultmirror.com/resetpassword/${email}`,
-                'reply_to': `Info.vaultmirror@gmail.com`,
+                'message': `https://www.myprofitshub.com/resetpassword/${email}`,
+                'reply_to': `support@myprofitshub.com`,
                 'subject':`Password Reset`
             }
         };

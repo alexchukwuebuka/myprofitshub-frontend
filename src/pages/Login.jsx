@@ -67,6 +67,11 @@ const Login = ({route}) => {
         icon: 'error',
         title: 'Error! Email not verified',
       });
+    }else if (status === 403) {
+      Toast.fire({
+        icon: 'warning',
+        title: 'Account Has been frozen due to violation of terms and conditions',
+      });
     } else if (status === 401) {
       Toast.fire({
         icon: 'warning',

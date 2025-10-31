@@ -1,6 +1,7 @@
 .admin-dash{
     min-height: auto;
     width: 100%;
+    background-color: white;
 }
 .credit-form-container{
     width: 85%;
@@ -86,7 +87,7 @@
 }
 .dashboard-wrapper{
     flex-direction: column;
-    background-color: red;
+    background-color: black;
 }
 
 .promo-btn,.manual-btn, .active-promo-btn, .approve-btn,.mail-btn{
@@ -213,13 +214,13 @@ tbody{
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 .dash-b {
-    width: fit-content;
+    width: 90%;
     margin: auto;
     padding-bottom:40px ;
 }
 .dash-b table{
     overflow-x: auto;
-    width: fit-content;
+    width: auto;
 }
 .transaction-container{
     overflow: auto;
@@ -404,5 +405,8 @@ tbody{
 @media screen and (max-width: 767px) {
     .create-trader-form{
         width: 100%;
+    }
+    .dash-b{
+        width: 90%;
     }
 }

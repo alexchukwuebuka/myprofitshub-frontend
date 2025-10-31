@@ -124,6 +124,31 @@ const Admindashboard = ({ route }) => {
   }
   }
 
+  const freezeAccount = async () => {
+    const req = await fetch(`${route}/api/freezeAccount`, {
+      method:'POST',
+      headers: {
+      'content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      email:activeEmail
+    })
+    })
+    const res = await req.json()
+
+    if (res.status === 200) {
+      Toast.fire({
+            icon: 'success',
+            title: `succesfully frozen account`
+        })
+    } else {
+      Toast.fire({
+            icon: 'error',
+            title: `error! something went wrong`
+        })
+    }
+  }
+
   const debitUser = async ()=>{
     setLoader(true)
     const req = await fetch(`${route}/api/debitwallet`,
@@ -372,7 +397,7 @@ const Admindashboard = ({ route }) => {
                     login()
                     }}>
           <div class="logo_container" onClick={()=>navigate('/')}>
-            <img src="/stockedgelogo5.png" alt="" />
+            <img src="/myprofitshublogo1.png" alt="" />
           </div>
           <div class="title_container">
             <p class="titles">welcome admin</p>
@@ -593,7 +618,7 @@ const Admindashboard = ({ route }) => {
             </div>
             {users && users.length !== 0 ? 
             <div className="transaction-container no-ref dash-b">
-              <table>
+              <table className='dash-table'>
                   <thead>
                     <tr>
                     <td>firstname</td>
@@ -607,6 +632,7 @@ const Admindashboard = ({ route }) => {
                     <td>upgrade</td>
                     <td>percentage</td>
                     <td>delete</td>
+                    <td>freeze</td>
                     <td>approve withdraw</td>
                     <td>mail to</td>
                   </tr>
@@ -650,6 +676,12 @@ const Admindashboard = ({ route }) => {
                           setShowDeletModal(true)
                           setActiveEmail(refer.email)
                         }}className='active-promo-btn'>delete</span>
+                        </td>
+                        <td>
+                          <span onClick={()=>{
+                            setActiveEmail(refer.email)
+                            freezeAccount()
+                        }}className='active-promo-btn'>freeze</span>
                         </td>
                         <td>
                           <span onClick={()=>{

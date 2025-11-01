@@ -838,85 +838,133 @@ const Admindashboard = ({ route }) => {
               <motion.div>
                 <div className="modal-overlay">
                   <div className="modal-container">
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <h2>{walletMode === 'add' ? 'Add Wallets' : 'Edit Wallets'}</h2>
-                      <MdClose className='close-modal-btn' onClick={() => { setShowWalletModal(false) }} style={{ cursor: 'pointer' }} />
-                    </div>
+                    <div className="wallet-wrapper">
+  <div className="wallet-header"></div>
 
-                    {walletLoading ? <p>loading...</p> : (
-                      <form onSubmit={submitWallets}>
-                        <label>Email (readonly)</label>
-                        <input type="email" value={walletData.email} readOnly />
+  {walletLoading ? (
+    <p>loading...</p>
+  ) : (
+    <form onSubmit={submitWallets} className="wallet-form">
+      <div className="wallet-pair dont-show">
+        <label>Email (readonly)</label>
+        <input type="email" value={walletData.email} readOnly />
+      </div>
 
-                        <label>Solana</label>
-                        <input
-                          type="text"
-                          value={walletData.solana}
-                          onChange={(e) => setWalletData({ ...walletData, solana: e.target.value })}
-                        />
+      <div className="wallet-pair">
+        <label>Solana</label>
+        <input
+          type="text"
+          value={walletData.solana}
+          onChange={(e) =>
+            setWalletData({ ...walletData, solana: e.target.value })
+          }
+        />
+      </div>
 
-                        <label>Ethereum</label>
-                        <input
-                          type="text"
-                          value={walletData.ethereum}
-                          onChange={(e) => setWalletData({ ...walletData, ethereum: e.target.value })}
-                        />
+      <div className="wallet-pair">
+        <label>Ethereum</label>
+        <input
+          type="text"
+          value={walletData.ethereum}
+          onChange={(e) =>
+            setWalletData({ ...walletData, ethereum: e.target.value })
+          }
+        />
+      </div>
 
-                        <label>Tron</label>
-                        <input
-                          type="text"
-                          value={walletData.tron}
-                          onChange={(e) => setWalletData({ ...walletData, tron: e.target.value })}
-                        />
+      <div className="wallet-pair">
+        <label>Tron</label>
+        <input
+          type="text"
+          value={walletData.tron}
+          onChange={(e) =>
+            setWalletData({ ...walletData, tron: e.target.value })
+          }
+        />
+      </div>
 
-                        <label>Bitcoin</label>
-                        <input
-                          type="text"
-                          value={walletData.bitcoin}
-                          onChange={(e) => setWalletData({ ...walletData, bitcoin: e.target.value })}
-                        />
+      <div className="wallet-pair">
+        <label>Bitcoin</label>
+        <input
+          type="text"
+          value={walletData.bitcoin}
+          onChange={(e) =>
+            setWalletData({ ...walletData, bitcoin: e.target.value })
+          }
+        />
+      </div>
 
-                        <label>USDT (TRC20)</label>
-                        <input
-                          type="text"
-                          value={walletData.usdt_trc20}
-                          onChange={(e) => setWalletData({ ...walletData, usdt_trc20: e.target.value })}
-                        />
+      <div className="wallet-pair">
+        <label>USDT (TRC20)</label>
+        <input
+          type="text"
+          value={walletData.usdt_trc20}
+          onChange={(e) =>
+            setWalletData({ ...walletData, usdt_trc20: e.target.value })
+          }
+        />
+      </div>
 
-                        <label>USDT (ERC20)</label>
-                        <input
-                          type="text"
-                          value={walletData.usdt_erc20}
-                          onChange={(e) => setWalletData({ ...walletData, usdt_erc20: e.target.value })}
-                        />
+      <div className="wallet-pair">
+        <label>USDT (ERC20)</label>
+        <input
+          type="text"
+          value={walletData.usdt_erc20}
+          onChange={(e) =>
+            setWalletData({ ...walletData, usdt_erc20: e.target.value })
+          }
+        />
+      </div>
 
-                        <label>XRP</label>
-                        <input
-                          type="text"
-                          value={walletData.xrp}
-                          onChange={(e) => setWalletData({ ...walletData, xrp: e.target.value })}
-                        />
+      <div className="wallet-pair">
+        <label>XRP</label>
+        <input
+          type="text"
+          value={walletData.xrp}
+          onChange={(e) =>
+            setWalletData({ ...walletData, xrp: e.target.value })
+          }
+        />
+      </div>
 
-                        <label>USDC (ERC20)</label>
-                        <input
-                          type="text"
-                          value={walletData.usdc_erc}
-                          onChange={(e) => setWalletData({ ...walletData, usdc_erc: e.target.value })}
-                        />
+      <div className="wallet-pair">
+        <label>USDC (ERC20)</label>
+        <input
+          type="text"
+          value={walletData.usdc_erc}
+          onChange={(e) =>
+            setWalletData({ ...walletData, usdc_erc: e.target.value })
+          }
+        />
+      </div>
 
-                        <label>USDC (TRC20)</label>
-                        <input
-                          type="text"
-                          value={walletData.usdc_trc20}
-                          onChange={(e) => setWalletData({ ...walletData, usdc_trc20: e.target.value })}
-                        />
+      <div className="wallet-pair">
+        <label>USDC (TRC20)</label>
+        <input
+          type="text"
+          value={walletData.usdc_trc20}
+          onChange={(e) =>
+            setWalletData({ ...walletData, usdc_trc20: e.target.value })
+          }
+        />
+      </div>
 
-                        <div className="modal-actions">
-                          <button type="submit" className="promo-btn">{walletMode === 'add' ? 'Add Wallets' : 'Update Wallets'}</button>
-                          <button type="button" className="active-promo-btn" onClick={() => setShowWalletModal(false)}>Cancel</button>
-                        </div>
-                      </form>
-                    )}
+      <div className="modal-actions">
+        <button type="submit" className="promo-btn">
+          {walletMode === "add" ? "Add Wallets" : "Update Wallets"}
+        </button>
+        <button
+          type="button"
+          className="active-promo-btn"
+          onClick={() => setShowWalletModal(false)}
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  )}
+</div>
+
                   </div>
                 </div>
               </motion.div>

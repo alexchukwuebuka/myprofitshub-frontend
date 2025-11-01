@@ -844,124 +844,63 @@ const Admindashboard = ({ route }) => {
   {walletLoading ? (
     <p>loading...</p>
   ) : (
-    <form onSubmit={submitWallets} className="wallet-form">
-      <div className="wallet-pair dont-show">
-        <label>Email (readonly)</label>
-        <input type="email" value={walletData.email} readOnly />
-      </div>
+    <form onSubmit={submitWallets} className='wallet-form'>
+  <div className='wallet-pair dont-show'>
+    <label>Email (readonly)</label>
+    <input type="email" value={walletData.email} readOnly />
+  </div>
 
-      <div className="wallet-pair">
-        <label>Solana</label>
-        <input
-          type="text"
-          value={walletData.solana}
-          onChange={(e) =>
-            setWalletData({ ...walletData, solana: e.target.value })
-          }
-        />
-      </div>
+  <div className='wallet-pair'>
+    <label>Solana</label>
+    <input type="text" value={walletData.solana} onChange={(e) => setWalletData({ ...walletData, solana: e.target.value })} />
+  </div>
 
-      <div className="wallet-pair">
-        <label>Ethereum</label>
-        <input
-          type="text"
-          value={walletData.ethereum}
-          onChange={(e) =>
-            setWalletData({ ...walletData, ethereum: e.target.value })
-          }
-        />
-      </div>
+  <div className='wallet-pair'>
+    <label>Ethereum</label>
+    <input type="text" value={walletData.ethereum} onChange={(e) => setWalletData({ ...walletData, ethereum: e.target.value })} />
+  </div>
 
-      <div className="wallet-pair">
-        <label>Tron</label>
-        <input
-          type="text"
-          value={walletData.tron}
-          onChange={(e) =>
-            setWalletData({ ...walletData, tron: e.target.value })
-          }
-        />
-      </div>
+  <div className='wallet-pair'>
+    <label>Tron</label>
+    <input type="text" value={walletData.tron} onChange={(e) => setWalletData({ ...walletData, tron: e.target.value })} />
+  </div>
 
-      <div className="wallet-pair">
-        <label>Bitcoin</label>
-        <input
-          type="text"
-          value={walletData.bitcoin}
-          onChange={(e) =>
-            setWalletData({ ...walletData, bitcoin: e.target.value })
-          }
-        />
-      </div>
+  <div className='wallet-pair'>
+    <label>Bitcoin</label>
+    <input type="text" value={walletData.bitcoin} onChange={(e) => setWalletData({ ...walletData, bitcoin: e.target.value })} />
+  </div>
 
-      <div className="wallet-pair">
-        <label>USDT (TRC20)</label>
-        <input
-          type="text"
-          value={walletData.usdt_trc20}
-          onChange={(e) =>
-            setWalletData({ ...walletData, usdt_trc20: e.target.value })
-          }
-        />
-      </div>
+  <div className='wallet-pair'>
+    <label>USDT (TRC20)</label>
+    <input type="text" value={walletData.usdt_trc20} onChange={(e) => setWalletData({ ...walletData, usdt_trc20: e.target.value })} />
+  </div>
 
-      <div className="wallet-pair">
-        <label>USDT (ERC20)</label>
-        <input
-          type="text"
-          value={walletData.usdt_erc20}
-          onChange={(e) =>
-            setWalletData({ ...walletData, usdt_erc20: e.target.value })
-          }
-        />
-      </div>
+  <div className='wallet-pair'>
+    <label>USDT (ERC20)</label>
+    <input type="text" value={walletData.usdt_erc20} onChange={(e) => setWalletData({ ...walletData, usdt_erc20: e.target.value })} />
+  </div>
 
-      <div className="wallet-pair">
-        <label>XRP</label>
-        <input
-          type="text"
-          value={walletData.xrp}
-          onChange={(e) =>
-            setWalletData({ ...walletData, xrp: e.target.value })
-          }
-        />
-      </div>
+  <div className='wallet-pair'>
+    <label>XRP</label>
+    <input type="text" value={walletData.xrp} onChange={(e) => setWalletData({ ...walletData, xrp: e.target.value })} />
+  </div>
 
-      <div className="wallet-pair">
-        <label>USDC (ERC20)</label>
-        <input
-          type="text"
-          value={walletData.usdc_erc}
-          onChange={(e) =>
-            setWalletData({ ...walletData, usdc_erc: e.target.value })
-          }
-        />
-      </div>
+  <div className='wallet-pair'>
+    <label>USDC (ERC20)</label>
+    <input type="text" value={walletData.usdc_erc} onChange={(e) => setWalletData({ ...walletData, usdc_erc: e.target.value })} />
+  </div>
 
-      <div className="wallet-pair">
-        <label>USDC (TRC20)</label>
-        <input
-          type="text"
-          value={walletData.usdc_trc20}
-          onChange={(e) =>
-            setWalletData({ ...walletData, usdc_trc20: e.target.value })
-          }
-        />
-      </div>
+  <div className='wallet-pair'>
+    <label>USDC (TRC20)</label>
+    <input type="text" value={walletData.usdc_trc20} onChange={(e) => setWalletData({ ...walletData, usdc_trc20: e.target.value })} />
+  </div>
 
-      <div className="modal-actions">
-        <button type="submit" className="promo-btn">
-          {walletMode === "add" ? "Add Wallets" : "Update Wallets"}
-        </button>
-        <button
-          type="button"
-          className="active-promo-btn"
-          onClick={() => setShowWalletModal(false)}
-        >
-          Cancel
-        </button>
-      </div>
-    </form>
+  <div className="modal-actions">
+    <button type="submit" className="promo-btn">{walletMode === 'add' ? 'Add Wallets' : 'Update Wallets'}</button>
+    <button type="button" className="active-promo-btn" onClick={() => setShowWalletModal(false)}>Cancel</button>
+  </div>
+</form>
+
   )}
 </div>
 

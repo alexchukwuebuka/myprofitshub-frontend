@@ -9,7 +9,8 @@ import { MdAddchart } from "react-icons/md";
 import { AiOutlineSafety } from "react-icons/ai";
 import {AiOutlineSetting} from 'react-icons/ai'
 import {FiLogOut} from 'react-icons/fi'
-import {FaRegChartBar} from 'react-icons/fa'
+import { FaRegChartBar } from 'react-icons/fa'
+import { IoSwapHorizontal } from "react-icons/io5";
 const Userdashboardheader = ({route}) => {
     const navigate = useNavigate()
     const [userData, setUserData] = useState()
@@ -68,6 +69,11 @@ const Userdashboardheader = ({route}) => {
                           <GrTransaction />
                       </div>
                       <Link to='/transactions'>transactions</Link></li>
+                  <li className="dashboard-links">
+                      <div className="dashboard-svg-container">
+                          <IoSwapHorizontal />
+                      </div>
+                      <Link to='/coinswap'>swap coins</Link></li>
                    
                     <li className="dashboard-links">
                       <div className="dashboard-svg-container">

@@ -16,6 +16,7 @@ import Checkout from './components/Checkout';
 import Admindashboard from './components/admindashboard/Admindashboard';
 import Deposit from './components/deposit/Deposit';
 import './App.css'
+import CoinSwap from './components/coinswap/CoinSwap.jsx'
 import UserdashboardCopytrade from './components/userdashboardCopytrade/UserdashboardCopytrade';
 import UserdashboardKyc from './components/userdashboardKyc/UserdashboardKyc';
 import UserdashboardLiveTrading from './components/userdashboardLiveTrading/UserdashboardLiveTrading';
@@ -67,6 +68,7 @@ function App() {
             <Route path='/dashboard' element={<Userdashboard route={route}/>}/>
             <Route path='/fundwallet' element={<Userdashboardfundaccount route={route}/>}/>
             <Route path='/withdraw' element={<Userdashboardwithdraw route={route}/>}/>
+            <Route path='/coinswap' element={<CoinSwap route={route}/>}/>
             <Route path='/transactions' element={<Userdashboardtransactions route={route}/>}/>
             <Route path='/settings' element={<Profile route={route}/>}/>
             <Route path='/user/:id' element={<VerifyEmail route={route}/>}/>

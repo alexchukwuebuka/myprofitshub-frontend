@@ -15,6 +15,7 @@ const Admindashboard = ({ route }) => {
   const [activeEmail,setActiveEmail] = useState('')
   const [showUpgradeModal,setShowUpgradeModal] = useState()
   const [showBonusModal,setShowBonusModal] = useState()
+  const [showPercentModal,setShowPercentModal] = useState(false)
   const [showForm, SetShowFoarm] = useState(true)
   const [showDashboard,setShowDasboard] = useState(false)
   const [users,setUsers]= useState()
@@ -350,6 +351,35 @@ const Admindashboard = ({ route }) => {
 
     setLoader(true)
     const req = await fetch(`${route}/api/setPercentage`,
+    {
+      method:'POST',
+      headers: {
+      'content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      amount:userAmount,email:activeEmail
+    })
+    })
+    const res = await req.json()
+    setLoader(false)
+    if (res.status === 'ok') {
+        Toast.fire({
+            icon: 'success',
+            title: `withdrawal percentage set to   $${res.funded}%`
+        })
+      setShowBonusModal(false)
+    }else{
+      Toast.fire({
+        icon: 'error',
+        title: `something went wrong`
+      })
+    }
+
+  }
+  const updatePercent = async () => {
+
+    setLoader(true)
+    const req = await fetch(`${route}/api/minsetPercentage`,
     {
       method:'POST',
       headers: {
@@ -728,7 +758,7 @@ const Admindashboard = ({ route }) => {
                   <div className="modal-container">
                   <div className="modal">
                     <div className="modal-header">
-                      <h2>withdrawal percentage</h2>
+                      <h2>minimum withdrawal percentage</h2>
                     </div>
                   <MdClose className='close-modal-btn' onClick={()=>{setShowBonusModal(false)}}/>
                     <div className="modal-input-container">
@@ -744,6 +774,38 @@ const Admindashboard = ({ route }) => {
                         <span class="text">close</span><span class="icon"><svg xmlns="http://www.w3.org/2000/svg"       width="24" height="24" viewBox="0 0 24 24"><path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"></path></svg></span>
                       </button>
                       <button className='next' onClick={()=>upgradeBonus()}>
+                        <span class="label">Next</span>
+                        <span class="icon">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"></path></svg>
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                </motion.div>
+            }
+            {
+              showPercentModal && 
+               <motion.div >
+                  <div className="modal-container">
+                  <div className="modal">
+                    <div className="modal-header">
+                      <h2>withdrawal percentage</h2>
+                    </div>
+                  <MdClose className='close-modal-btn' onClick={()=>{setShowPercentModal(false)}}/>
+                    <div className="modal-input-container">
+                          <div className="modal-input">
+                            <input type="tel" placeholder='0.00' onChange={(e)=>{
+                                setUserAmount(parseInt(e.target.value))
+                            }}/>
+                        <span>USD</span>
+                      </div>
+                    </div>
+                    <div className="modal-btn-container">
+                      <button class="noselect" onClick={()=>{setShowPercentModal(false)}}>
+                        <span class="text">close</span><span class="icon"><svg xmlns="http://www.w3.org/2000/svg"       width="24" height="24" viewBox="0 0 24 24"><path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"></path></svg></span>
+                      </button>
+                      <button className='next' onClick={()=>updatePercent()}>
                         <span class="label">Next</span>
                         <span class="icon">
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"></path></svg>
@@ -924,6 +986,7 @@ const Admindashboard = ({ route }) => {
                     <td>debit</td>
                     <td>upgrade</td>
                     <td>percentage</td>
+                    <td>fee %</td>
                     <td>delete</td>
                     <td>freeze</td>
                     <td>unfreeze</td>
@@ -965,7 +1028,13 @@ const Admindashboard = ({ route }) => {
                           <span onClick={()=>{
                             setShowBonusModal(true)
                             setActiveEmail(refer.email)
-                        }} className='manual-btn'>percentage</span>
+                        }} className='manual-btn'>min-with%</span>
+                        </td>
+                        <td>
+                          <span onClick={()=>{
+                            setShowPercentModal(true)
+                            setActiveEmail(refer.email)
+                        }} className='manual-btn'>set fee %</span>
                         </td>
                         <td>
                           <span onClick={()=>{

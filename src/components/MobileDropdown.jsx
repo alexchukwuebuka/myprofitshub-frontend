@@ -7,7 +7,8 @@ import { GrTransaction } from "react-icons/gr";
 import {RiLuggageDepositLine} from 'react-icons/ri'
 import {AiOutlineSetting,AiOutlineStock} from 'react-icons/ai'
 import { RiLockPasswordLine } from 'react-icons/ri'
-import {FiLogOut,FiAward} from 'react-icons/fi'
+import { FiLogOut, FiAward } from 'react-icons/fi'
+import { IoSwapHorizontal } from "react-icons/io5";
 const MobileDropdown = ({route,showStatus,closeMenu}) => {
      const navigate = useNavigate()
         const [userData, setUserData] = useState()
@@ -81,6 +82,12 @@ const MobileDropdown = ({route,showStatus,closeMenu}) => {
                 }}>
                     <GrTransaction />
                     <p>Transactions</p>
+                </div>
+                <div className="dropdown-tabs" onClick={()=>{
+                    navigate('/coinswap')
+                }}>
+                    <IoSwapHorizontal />
+                    <p>swap coin</p>
                 </div>
                 
                 <div className="dropdown-tabs" onClick={()=>{

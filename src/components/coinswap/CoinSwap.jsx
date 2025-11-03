@@ -2,17 +2,12 @@ import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import { motion, AnimatePresence } from "framer-motion";
 import "./CoinSwap.css";
-import { FaUserAlt,FaAngleDown } from "react-icons/fa";
-import { Link, useNavigate } from 'react-router-dom'
-import { useRef } from 'react'
+import { FaUserAlt, FaAngleDown } from "react-icons/fa";
 import { IoMdNotifications } from "react-icons/io";
-import Loader from '../Loader'
-import { IoCloseSharp } from "react-icons/io5";
-import { RiLuggageDepositLine } from "react-icons/ri";
-import Userdashboardheader from '../userdashboardheader/Userdashboardheader'
-import { BiMoneyWithdraw } from "react-icons/bi";
-import TeslaWidget from '../TeslaWidget'
-import MobileDropdown from '../MobileDropdown';
+import Loader from "../Loader";
+import Userdashboardheader from "../userdashboardheader/Userdashboardheader";
+import { Link, useNavigate } from "react-router-dom";
+import MobileDropdown from "../MobileDropdown";
 
 const supportedCoins = [
   { name: "Bitcoin", symbol: "BTC", coingeckoId: "bitcoin" },
@@ -29,9 +24,9 @@ const supportedCoins = [
 ];
 
 const CoinSwap = ({ route }) => {
-    const [loader, setLoader] = useState(false)
-    const [showNotification, setShowNotification] = useState(true)
-    const [showMobileDropdown, setShowMobileDropdown] = useState(false)
+  const [loader, setLoader] = useState(false);
+  const [showNotification, setShowNotification] = useState(true);
+  const [showMobileDropdown, setShowMobileDropdown] = useState(false);
   const [userData, setUserData] = useState(null);
   const [fromCoin, setFromCoin] = useState("");
   const [toCoin, setToCoin] = useState("");
@@ -63,7 +58,7 @@ const CoinSwap = ({ route }) => {
     getData();
   }, [route]);
 
-  // ✅ Fetch conversion rates
+  // ✅ Fetch conversion rates and validate swap logic
   useEffect(() => {
     const fetchRates = async () => {
       if (!fromCoin || !toCoin) {
@@ -77,35 +72,41 @@ const CoinSwap = ({ route }) => {
 
       const isFromStable =
         from.name.includes("USDT") || from.name.includes("USDC");
-      const isToStable = to.name.includes("USDT") || to.name.includes("USDC");
+      const isToStable =
+        to.name.includes("USDT") || to.name.includes("USDC");
 
-      // Validate allowed swap directions
-      if (isFromStable && isToStable) {
-        setValidSwap(false);
-        setRate(null);
-        return;
-      }
+      // ✅ Your intended logic:
+      // ❌ Can't go from stablecoin -> mother coin
+      // ✅ Allowed: mother -> stable, mother -> mother, stable -> stable
       if (isFromStable && !isToStable) {
         setValidSwap(false);
         setRate(null);
         return;
-      }
-      if (!isFromStable && isToStable) {
-        setValidSwap(true);
       } else {
-        setValidSwap(false);
-        setRate(null);
-        return;
+        setValidSwap(true);
       }
 
       try {
         const fromUrl = `https://api.coingecko.com/api/v3/simple/price?ids=${from.coingeckoId}&vs_currencies=usd`;
-        const res = await fetch(fromUrl);
-        const data = await res.json();
-        const fromUSD = data[from.coingeckoId]?.usd || 0;
-        const toUSD = 1; // stablecoins ≈ 1 USD
-        const calcRate = fromUSD / toUSD;
-        setRate(calcRate.toFixed(6));
+        const toUrl = `https://api.coingecko.com/api/v3/simple/price?ids=${to.coingeckoId}&vs_currencies=usd`;
+
+        const [fromRes, toRes] = await Promise.all([
+          fetch(fromUrl),
+          fetch(toUrl),
+        ]);
+
+        const fromData = await fromRes.json();
+        const toData = await toRes.json();
+
+        const fromUSD = fromData[from.coingeckoId]?.usd || 0;
+        const toUSD = toData[to.coingeckoId]?.usd || 0;
+
+        if (fromUSD && toUSD) {
+          const calcRate = fromUSD / toUSD;
+          setRate(calcRate.toFixed(6));
+        } else {
+          setRate(null);
+        }
       } catch (err) {
         console.error(err);
         setRate(null);
@@ -151,125 +152,133 @@ const CoinSwap = ({ route }) => {
       "success"
     );
 
-    // TODO: Add your actual swap API call here
-    // await fetch(`${route}/api/swap`, { method: "POST", ... })
-    };
-    const closeMobileMenu = () => {
-    setShowMobileDropdown(false)
-  }
+    // TODO: Implement API call here
+  };
 
-    return (
-        <main className='homewrapper'>
-      {
-        loader &&
-          <Loader />
-      }
-    <Userdashboardheader />
-      <section className='dashboardhomepage'>
-        
+  const closeMobileMenu = () => {
+    setShowMobileDropdown(false);
+  };
+
+  return (
+    <main className="homewrapper">
+      {loader && <Loader />}
+      <Userdashboardheader />
+      <section className="dashboardhomepage">
         <div className="dashboardheaderwrapper">
           <div className="header-notification-icon-container">
-              <IoMdNotifications />
+            <IoMdNotifications />
           </div>
           <div className="header-username-container">
-            <h3>Hi, {userData ? userData.firstname : ''}</h3>
+            <h3>Hi, {userData ? userData.firstname : ""}</h3>
           </div>
           <div className="header-userprofile-container">
             <div className="user-p-icon-container">
-              <FaUserAlt/>
+              <FaUserAlt />
             </div>
-            <div className="user-p-drop-icon" onClick={() => { setShowMobileDropdown(!showMobileDropdown); }
-             }>
+            <div
+              className="user-p-drop-icon"
+              onClick={() => {
+                setShowMobileDropdown(!showMobileDropdown);
+              }}
+            >
               <FaAngleDown />
             </div>
-            
           </div>
         </div>
-      
+
         <div className="swap-container">
-                    <MobileDropdown showStatus={showMobileDropdown} route={route} closeMenu={closeMobileMenu} />
-      <h2>Crypto Swap</h2>
-
-      {userData && (
-        <p className="balance-display">
-          Available Balance: <b>${userData.funded.toFixed(2)}</b>
-        </p>
-      )}
-
-      <div className="swap-box">
-        <div className="input-group">
-          <label>From</label>
-          <select value={fromCoin} onChange={(e) => setFromCoin(e.target.value)}>
-            <option value="">Select coin</option>
-            {supportedCoins.map((coin) => (
-              <option key={coin.symbol} value={coin.symbol}>
-                {coin.name}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="input-group">
-          <label>To</label>
-          <select value={toCoin} onChange={(e) => setToCoin(e.target.value)}>
-            <option value="">Select coin</option>
-            {supportedCoins.map((coin) => (
-              <option key={coin.symbol} value={coin.symbol}>
-                {coin.name}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="input-group">
-          <label>Amount</label>
-          <input
-            type="number"
-            value={fromAmount}
-            onChange={(e) => setFromAmount(parseFloat(e.target.value) || "")}
-            placeholder="Enter amount"
-            max={userData?.funded || ""}
+          <MobileDropdown
+            showStatus={showMobileDropdown}
+            route={route}
+            closeMenu={closeMobileMenu}
           />
-        </div>
+          <h2>Crypto Swap</h2>
 
-        {rate && validSwap && (
-          <p className="rate-display">
-            1 {fromCoin} ≈ {rate} {toCoin}
-          </p>
-        )}
-
-        <AnimatePresence>
-          {toAmount && validSwap && (
-            <motion.div
-              key={toAmount}
-              className="output-group"
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.4 }}
-            >
-              <label>You’ll Receive:</label>
-              <p>
-                {toAmount} {toCoin}
-              </p>
-            </motion.div>
+          {userData && (
+            <p className="balance-display">
+              Available Balance: <b>${userData.funded.toFixed(2)}</b>
+            </p>
           )}
-        </AnimatePresence>
 
-        {!validSwap && fromCoin && toCoin && (
-          <p className="error-text">⚠️ Swap direction not allowed</p>
-        )}
+          <div className="swap-box">
+            <div className="input-group">
+              <label>From</label>
+              <select
+                value={fromCoin}
+                onChange={(e) => setFromCoin(e.target.value)}
+              >
+                <option value="">Select coin</option>
+                {supportedCoins.map((coin) => (
+                  <option key={coin.symbol} value={coin.symbol}>
+                    {coin.name}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-        <button
-          onClick={handleSwap}
-          disabled={!validSwap || !rate}
-          className={validSwap ? "swap-btn" : "swap-btn disabled"}
-        >
-          Swap
-        </button>
-      </div>
-    </div>
-    </section>
+            <div className="input-group">
+              <label>To</label>
+              <select value={toCoin} onChange={(e) => setToCoin(e.target.value)}>
+                <option value="">Select coin</option>
+                {supportedCoins.map((coin) => (
+                  <option key={coin.symbol} value={coin.symbol}>
+                    {coin.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="input-group">
+              <label>Amount</label>
+              <input
+                type="number"
+                value={fromAmount}
+                onChange={(e) =>
+                  setFromAmount(parseFloat(e.target.value) || "")
+                }
+                placeholder="Enter amount"
+                max={userData?.funded || ""}
+              />
+            </div>
+
+            {rate && validSwap && (
+              <p className="rate-display">
+                1 {fromCoin} ≈ {rate} {toCoin}
+              </p>
+            )}
+
+            <AnimatePresence>
+              {toAmount && validSwap && (
+                <motion.div
+                  key={toAmount}
+                  className="output-group"
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.4 }}
+                >
+                  <label>You’ll Receive:</label>
+                  <p>
+                    {toAmount} {toCoin}
+                  </p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {!validSwap && fromCoin && toCoin && (
+              <p className="error-text">⚠️ Swap direction not allowed</p>
+            )}
+
+            <button
+              onClick={handleSwap}
+              disabled={!validSwap || !rate}
+              className={validSwap ? "swap-btn" : "swap-btn disabled"}
+            >
+              Swap
+            </button>
+          </div>
+        </div>
+      </section>
     </main>
   );
 };

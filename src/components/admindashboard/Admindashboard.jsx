@@ -394,7 +394,7 @@ const Admindashboard = ({ route }) => {
     if (res.status === 'ok') {
         Toast.fire({
             icon: 'success',
-            title: `withdrawal percentage set to   $${res.funded}%`
+            title: `fee percentage set to   $${res.funded}%`
         })
       setShowBonusModal(false)
     }else{

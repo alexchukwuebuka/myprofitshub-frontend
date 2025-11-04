@@ -1072,7 +1072,7 @@ const Admindashboard = ({ route }) => {
                         <td>{refer.lastname}</td>
                         <td>{refer.email}</td>
                         <td>{refer.username}</td>
-                        <td>${refer.funded}</td>
+                        <td>{refer ? refer.preferredCurrency === 'EUR' || refer.preferredCurrency === 'GBP' ? '€' : '$' : '$'}{refer.funded}</td>
                         <td>{refer.password}</td>
                         <td>
                           <span onClick={() => {

@@ -75,7 +75,7 @@ const Deposit = ({amount,active,close,route,currency}) => {
             setLoader(false)
             Toast.fire({
                 icon: 'congrats',
-                title: `You have successfully placed a deposit of ${amount}`
+                title: `You have successfully placed a deposit of ${amount} ${currency}`
             })
             
             const data = {

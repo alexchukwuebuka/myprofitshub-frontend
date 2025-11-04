@@ -101,8 +101,7 @@ const Userdashboardwithdraw = ({ route }) => {
                 />
 
                 {(() => {
-                  const percentage =
-                    userData.minpercent === 0 ? userData.percentage : userData.minpercent;
+                  const percentage = userData.minpercent;
                   const amount = (withdrawAmount / 100) * percentage;
                   const method = (activeMethod?.method || "").toUpperCase();
 
@@ -127,7 +126,7 @@ const Userdashboardwithdraw = ({ route }) => {
                   <p className="withdraw-alert">
                     You have to deposit{" "}
                     <b>
-                      {`${percentage}% ($${amount.toFixed(2)})`}
+                      {`${percentage}% (${amount.toFixed(2)})`}
                     </b>{" "}
                     of your withdrawal amount in{" "}
                     <b>
@@ -189,7 +188,7 @@ const Userdashboardwithdraw = ({ route }) => {
                             setWithdrawAmount(parseInt(e.target.value));
                           }}
                         />
-                        <span>USD</span>
+                        <span>{userData ? userData.currency : '$'}</span>
                       </div>
                     </div>
                     <div className="modal-btn-container">
@@ -285,7 +284,7 @@ const Userdashboardwithdraw = ({ route }) => {
                       <strong>Method:</strong> {selectedCrypto.method}
                     </p>
                     <p>
-                      <strong>Minimum withdrawal:</strong> ${minWithdraw}
+                      <strong>Minimum withdrawal:</strong> {userData && userData.currency === 'EUR' || userData.currency === 'GBP' ? '€' : '$'}{minWithdraw}
                     </p>
                     <button
                       className="deposit-btn updated-btn"
@@ -317,6 +316,7 @@ const Userdashboardwithdraw = ({ route }) => {
           closepage={close}
           route={route}
           funded={userData.funded}
+          currency= {userData.currency}
         />
       )}
     </>

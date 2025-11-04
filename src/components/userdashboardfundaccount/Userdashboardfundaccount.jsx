@@ -6,6 +6,7 @@ import { MdClose } from 'react-icons/md';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import Swal from 'sweetalert2';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import Loader from '../Loader';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
@@ -22,6 +23,32 @@ const Userdashboardfundaccount = ({ route }) => {
   const [activeMethod, setActiveMethod] = useState();
   const [selectedCrypto, setSelectedCrypto] = useState(null);
   const [depositOptions, setDepositOptions] = useState([]);
+  const [userData, setUserData] = useState();
+  const [loader, setLoader] = useState(false);
+
+  useEffect(() => {
+      setLoader(true);
+      if (localStorage.getItem("token")) {
+        const getData = async () => {
+          const req = await fetch(`${route}/api/getData`, {
+            headers: {
+              "x-access-token": localStorage.getItem("token"),
+            },
+          });
+          const res = await req.json();
+          setUserData(res);
+  
+          if (res.status === "error") {
+            navigate("/login");
+          }
+          setLoader(false);
+          
+        };
+        getData();
+      } else {
+        navigate("/login");
+      }
+    }, []);
 
   const Toast = Swal.mixin({
     toast: true,
@@ -86,6 +113,7 @@ const Userdashboardfundaccount = ({ route }) => {
 
   return (
     <>
+      {loader && <Loader />}
       {!checkoutPage && (
         <main className="homewrapper">
           {showModal && (
@@ -95,7 +123,7 @@ const Userdashboardfundaccount = ({ route }) => {
                   <div className="modal">
                     <div className="modal-header">
                       <h2>Deposit via {activeMethod.method}</h2>
-                      <p>Minimum deposit: {activeMethod.min} USD</p>
+                      <p>Minimum deposit: {activeMethod.min} {userData ? userData.currency : 'USD'}</p>
                       <p><strong>Wallet:</strong> {activeMethod.wallet}</p>
                     </div>
                     <MdClose className="close-modal-btn" onClick={() => setShowModal(false)} />
@@ -106,7 +134,7 @@ const Userdashboardfundaccount = ({ route }) => {
                           placeholder="0.00"
                           onChange={(e) => setDepositAmount(parseInt(e.target.value))}
                         />
-                        <span>USD</span>
+                        <span>{userData ? userData.currency : 'USD'}</span>
                       </div>
                     </div>
                     <div className="modal-btn-container">
@@ -182,7 +210,7 @@ const Userdashboardfundaccount = ({ route }) => {
                       <img src={selectedCrypto.image} alt={selectedCrypto.method} className="updated-crypto-img" />
                     </div>
                     <p><strong>Method:</strong> {selectedCrypto.method}</p>
-                    <p><strong>Minimum deposit:</strong> ${selectedCrypto.min}</p>
+                    <p><strong>Minimum deposit:</strong> {userData ? userData.currency === 'EUR' || userData.currency === 'GBP' ? '€' : '$' : '$'}{selectedCrypto.min}</p>
                     <p><strong>Wallet:</strong> {selectedCrypto.wallet}</p>
                     <button
                       className="deposit-btn updated-btn"
@@ -207,7 +235,7 @@ const Userdashboardfundaccount = ({ route }) => {
       )}
 
       {checkoutPage && (
-        <Checkout Active={activeMethod} depositAmount={depositAmount} closepage={close} route={route} />
+        <Checkout Active={activeMethod} depositAmount={depositAmount} closepage={close} route={route} currency= {userData.currency}/>
       )}
     </>
   );

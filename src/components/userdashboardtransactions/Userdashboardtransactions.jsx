@@ -113,9 +113,9 @@ const Userdashboardtransactions = ({route}) => {
                   <tr>
                     <td>{refer.id}</td>
                     <td>{refer.type}</td>
-                    <td>$ {refer.amount} USD</td>
+                    <td> {refer.amount} {userData ? userData.currency : 'USD'}</td>
                     <td>{refer.date}</td>
-                    <td>$ {refer.balance} USD</td>
+                    <td>{refer.balance} {userData ? userData.currency : 'USD'}</td>
                   </tr>
                 )
               }

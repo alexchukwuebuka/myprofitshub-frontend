@@ -123,8 +123,7 @@ const Userdashboardhomepage = ({route}) => {
                 Total Balance
               </h2>
               <div className="amount">
-                <h3>${userData ? userData.funded : '0'}.00</h3>
-                <span className="usd-btn">usd</span>
+                <h3>{userData ? userData.currency === 'EUR' || userData.currency === 'GBP' ? '€' : '$' : '$'}{userData ? userData.funded : '0'}.00</h3>
               </div>
             </div>
             <div className="overview-btn-container">
@@ -145,7 +144,7 @@ const Userdashboardhomepage = ({route}) => {
               </div>
               <div className="lower-card-text-container">
                 <h3>total deposit</h3>
-                <p>${userData ? userData.totaldeposit : '0'}.00</p>
+                <p>{userData ? userData.currency === 'EUR' || userData.currency === 'GBP' ? '€' : '$' : '$'}{userData ? userData.totaldeposit : '0'}.00</p>
               </div>
             </div>
             <div className="lower-overview-card">
@@ -154,7 +153,7 @@ const Userdashboardhomepage = ({route}) => {
               </div>
               <div className="lower-card-text-container">
                 <h3>total withdrawal</h3>
-                <p>${userData ? userData.totalwithdraw : '0'}.00</p>
+                <p>{userData ? userData.currency === 'EUR' || userData.currency === 'GBP' ? '€' : '$' : '$'}{userData ? userData.totalwithdraw : '0'}.00</p>
               </div>
             </div>
           </div>

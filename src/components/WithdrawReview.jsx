@@ -6,7 +6,7 @@ import Userdashboardheader from './userdashboardheader/Userdashboardheader'
 import './userdashboardwithdraw/userdashboardwithdraw.css'
 import {AiOutlineArrowLeft} from 'react-icons/ai'
 import Loader from './Loader'
-const WithdrawReview = ({Active,withdrawAmount,closepage,route,funded}) => {
+const WithdrawReview = ({Active,withdrawAmount,closepage,route,funded,currency}) => {
     const [active,setActive] = useState(Active)
     const [wallet,setWallet] = useState()
     const [amount,setAmount] = useState(withdrawAmount)
@@ -151,25 +151,25 @@ const WithdrawReview = ({Active,withdrawAmount,closepage,route,funded}) => {
             <div className="withdrawal-review-container">
                 <div className="left-withdrawal-review-card">
                     <div className="review-left-card-tab">
-                        <p>Current Balance: <b>{funded} USD</b></p>
+                        <p>Current Balance: <b>{funded} {currency}</b></p>
                     </div>
                     <div className="review-left-card-tab">
-                        <p>Request Balance: <b>{amount ? amount : ''} USD</b></p>
+                        <p>Request Balance: <b>{amount ? amount : ''} {currency}</b></p>
                     </div>
                     <div className="review-left-card-tab">
-                        <p>Withdrawal Charge: <b>0 USD</b></p>
+                        <p>Withdrawal Charge: <b>0 {currency}</b></p>
                     </div>
                     <div className="review-left-card-tab">
-                        <p>After Charge: <b>0 USD</b> </p>
+                        <p>After Charge: <b>0 {currency}</b> </p>
                     </div>
                     <div className="review-left-card-tab">
-                        <p>Conversion Rate: <b>1 USD = 1 USD</b></p>
+                        <p>Conversion Rate: <b>1 {currency} = 1 {currency}</b></p>
                     </div>
                     <div className="review-left-card-tab">
-                        <p>You Will Get: <b>{amount ? amount : ''} USD</b></p>
+                        <p>You Will Get: <b>{amount ? amount : ''} {currency}</b></p>
                     </div>
                     <div className="review-left-card-tab">
-                        <p>Balance Will be: <b>{funded - amount} USD</b></p>
+                        <p>Balance Will be: <b>{funded - amount} {currency}</b></p>
                     </div>
                     
                 </div>

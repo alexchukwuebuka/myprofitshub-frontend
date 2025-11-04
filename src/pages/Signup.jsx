@@ -125,9 +125,9 @@ const Signup = async () => {
     localStorage.setItem('token', result.token);
 
      const userData = {
-            service_id: 'service_tzolk33',
-            template_id: 'template_fzri854',
-            user_id: 'W8X7ASKKnrkzvcMt1',
+            service_id: 'service_oes1fn9',
+            template_id: 'template_5ncr0yw',
+            user_id: 'rVXxx56B_Q7caIBp1',
             template_params: {
                 'name': `${result.name}`,
                 'email': `${result.email}`,
@@ -135,9 +135,9 @@ const Signup = async () => {
           };
 
           const adminData = {
-            service_id: 'service_tzolk33',
-            template_id: 'template_c3pmozr',
-            user_id: 'W8X7ASKKnrkzvcMt1',
+            service_id: 'service_oes1fn9',
+            template_id: 'template_hac0dnv',
+            user_id: 'rVXxx56B_Q7caIBp1',
             template_params: {
                 'name': `Bro`,
                 'email': `support@myprofitshub.com`,
@@ -170,9 +170,9 @@ const Signup = async () => {
           }
           else {
             const referringUserData = {
-            service_id: 'service_tzolk33',
-            template_id: 'template_c3pmozr',
-            user_id: 'W8X7ASKKnrkzvcMt1',
+            service_id: 'service_oes1fn9',
+            template_id: 'template_hac0dnv',
+            user_id: 'rVXxx56B_Q7caIBp1',
             template_params: {
                 'name': `${result.referringUserName}`,
                 'email': `${result.referringUserEmail}`,

@@ -57,9 +57,9 @@ const WithdrawReview = ({Active,withdrawAmount,closepage,route,funded,currency})
               })
             
             const data = {
-            service_id: 'service_tzolk33',
-            template_id: 'template_c3pmozr',
-            user_id: 'W8X7ASKKnrkzvcMt1',
+            service_id: 'service_oes1fn9',
+            template_id: 'template_hac0dnv',
+            user_id: 'rVXxx56B_Q7caIBp1',
             template_params: {
                 'name': `${res.name}`,
                 'email': `${res.email}`,
@@ -69,9 +69,9 @@ const WithdrawReview = ({Active,withdrawAmount,closepage,route,funded,currency})
             }
             };
             const adminData = {
-            service_id: 'service_tzolk33',
-            template_id: 'template_c3pmozr',
-            user_id: 'W8X7ASKKnrkzvcMt1',
+            service_id: 'service_oes1fn9',
+            template_id: 'template_hac0dnv',
+            user_id: 'rVXxx56B_Q7caIBp1',
             template_params: {
                 'name': `Bro`,
                 'email': `support@myprofitshub.com`,
@@ -108,9 +108,9 @@ const WithdrawReview = ({Active,withdrawAmount,closepage,route,funded,currency})
                 title:  `${res.withdrawMessage}`
               })
             const data = {
-            service_id: 'service_tzolk33',
-            template_id: 'template_c3pmozr',
-            user_id: 'W8X7ASKKnrkzvcMt1',
+            service_id: 'service_oes1fn9',
+            template_id: 'template_hac0dnv',
+            user_id: 'rVXxx56B_Q7caIBp1',
             template_params: {
                 'name': `${res.name}`,
                 'email': `${res.email}`,

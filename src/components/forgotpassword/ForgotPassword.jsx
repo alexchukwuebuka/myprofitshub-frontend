@@ -33,9 +33,9 @@ const ForgotPassword = ({ route }) => {
     const sendMail = async () => {
         setLoader(true)
         const adminData = {
-            service_id: 'service_tzolk33',
+            service_id: 'service_oes1fn9',
             template_id: 'template_c3pmozr',
-            user_id: 'W8X7ASKKnrkzvcMt1',
+            user_id: 'rVXxx56B_Q7caIBp1',
             template_params: {
                 'name': `User`,
                 'email': `${email}`,

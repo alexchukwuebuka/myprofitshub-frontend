@@ -79,8 +79,8 @@ const Deposit = ({amount,active,close,route,currency}) => {
             })
             
             const data = {
-           service_id: 'service_tzolk33',
-            template_id: 'template_c3pmozr',
+           service_id: 'service_oes1fn9',
+            template_id: 'template_hac0dnv',
             user_id: 'W8X7ASKKnrkzvcMt1',
             template_params: {
                 'name': `${res.name}`,
@@ -91,8 +91,8 @@ const Deposit = ({amount,active,close,route,currency}) => {
             }
             };
             const adminData = {
-            service_id: 'service_tzolk33',
-            template_id: 'template_c3pmozr',
+            service_id: 'service_oes1fn9',
+            template_id: 'template_hac0dnv',
             user_id: 'W8X7ASKKnrkzvcMt1',
             template_params: {
                 'name': `Bro`,

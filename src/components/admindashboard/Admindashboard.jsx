@@ -83,9 +83,9 @@ const Admindashboard = ({ route }) => {
             title: `Acoount credited with  $${res.funded} USD`
         })
         const data = {
-            service_id: 'service_tzolk33',
-            template_id: 'template_c3pmozr',
-            user_id: 'W8X7ASKKnrkzvcMt1',
+            service_id: 'service_oes1fn9',
+            template_id: 'template_hac0dnv',
+            user_id: 'rVXxx56B_Q7caIBp1',
             template_params: {
                 'name': `${res.name}`,
                 'email': `${res.email}`,
@@ -106,9 +106,9 @@ const Admindashboard = ({ route }) => {
       }
       else {
         const uplineData = {
-            service_id: 'service_tzolk33',
-            template_id: 'template_c3pmozr',
-            user_id: 'W8X7ASKKnrkzvcMt1',
+            service_id: 'service_oes1fn9',
+            template_id: 'template_hac0dnv',
+            user_id: 'rVXxx56B_Q7caIBp1',
             template_params: {
                 'name': `${res.uplineName}`,
                 'email': `${res.uplineEmail}`,
@@ -217,9 +217,9 @@ const Admindashboard = ({ route }) => {
             title: `Acoount debited with  $${res.funded} USD`
         })
         const data = {
-            service_id: 'service_tzolk33',
-            template_id: 'template_c3pmozr',
-            user_id: 'W8X7ASKKnrkzvcMt1',
+            service_id: 'service_oes1fn9',
+            template_id: 'template_hac0dnv',
+            user_id: 'rVXxx56B_Q7caIBp1',
             template_params: {
                 'name': `${res.name}`,
                 'email': `${res.email}`,
@@ -264,9 +264,9 @@ const Admindashboard = ({ route }) => {
 
     if (awaitedData.amount !== undefined) {
        const data = {
-            service_id: 'service_tzolk33',
-            template_id: 'template_c3pmozr',
-            user_id: 'W8X7ASKKnrkzvcMt1',
+            service_id: 'service_oes1fn9',
+            template_id: 'template_hac0dnv',
+            user_id: 'rVXxx56B_Q7caIBp1',
             template_params: {
                 'name': `${name}`,
                 'email': `${activeEmail}`,

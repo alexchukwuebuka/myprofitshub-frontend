@@ -34,7 +34,7 @@ const ForgotPassword = ({ route }) => {
         setLoader(true)
         const adminData = {
             service_id: 'service_oes1fn9',
-            template_id: 'template_c3pmozr',
+            template_id: 'template_hac0dnv',
             user_id: 'rVXxx56B_Q7caIBp1',
             template_params: {
                 'name': `User`,

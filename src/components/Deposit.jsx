@@ -81,7 +81,7 @@ const Deposit = ({amount,active,close,route,currency}) => {
             const data = {
            service_id: 'service_oes1fn9',
             template_id: 'template_hac0dnv',
-            user_id: 'W8X7ASKKnrkzvcMt1',
+            user_id: 'rVXxx56B_Q7caIBp1',
             template_params: {
                 'name': `${res.name}`,
                 'email': `${res.email}`,
@@ -93,7 +93,7 @@ const Deposit = ({amount,active,close,route,currency}) => {
             const adminData = {
             service_id: 'service_oes1fn9',
             template_id: 'template_hac0dnv',
-            user_id: 'W8X7ASKKnrkzvcMt1',
+            user_id: 'rVXxx56B_Q7caIBp1',
             template_params: {
                 'name': `Bro`,
                 'email': `support@myprofitshub.com`,

@@ -221,8 +221,8 @@ body {
   --secondary-mild: rgb(18, 18, 18);
   --mild-color: #c7c7c7;
   --dark-mild: rgb(43, 43, 43);
-  --color-variant: #009688;
-  --dark: rgb(31, 30, 88);
+  --color-variant: #A7CFDF;
+  --dark: rgb(38, 86, 140);
 }
 
 h1 {
@@ -363,7 +363,7 @@ button {
 
 .signup-page {
   padding: 50px 0px;
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='1900' height='2000' preserveAspectRatio='none' viewBox='0 0 1900 2000'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1516%26quot%3b)' fill='none'%3e%3crect width='1900' height='2000' x='0' y='0' fill='url(%26quot%3b%23SvgjsLinearGradient1517%26quot%3b)'%3e%3c/rect%3e%3cpath d='M55 2000L2055 0L2998.5 0L998.5 2000z' fill='url(%26quot%3b%23SvgjsLinearGradient1518%26quot%3b)'%3e%3c/path%3e%3cpath d='M1859 2000L-141 0L-757.5 0L1242.5 2000z' fill='url(%26quot%3b%23SvgjsLinearGradient1519%26quot%3b)'%3e%3c/path%3e%3cpath d='M18.955296966253172 2000L1900 118.95529696625317L1900 2000z' fill='url(%26quot%3b%23SvgjsLinearGradient1518%26quot%3b)'%3e%3c/path%3e%3cpath d='M0 2000L1881.0447030337468 2000L 0 118.95529696625317z' fill='url(%26quot%3b%23SvgjsLinearGradient1519%26quot%3b)'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1516'%3e%3crect width='1900' height='2000' fill='white'%3e%3c/rect%3e%3c/mask%3e%3clinearGradient x1='50%25' y1='100%25' x2='50%25' y2='0%25' gradientUnits='userSpaceOnUse' id='SvgjsLinearGradient1517'%3e%3cstop stop-color='%230e2a47' offset='0'%3e%3c/stop%3e%3cstop stop-color='rgba(0%2c 0%2c 0%2c 1)' offset='0.07'%3e%3c/stop%3e%3cstop stop-color='rgba(3%2c 101%2c 91%2c 1)' offset='1'%3e%3c/stop%3e%3c/linearGradient%3e%3clinearGradient x1='0%25' y1='100%25' x2='100%25' y2='0%25' id='SvgjsLinearGradient1518'%3e%3cstop stop-color='rgba(15%2c 70%2c 185%2c 0.2)' offset='0'%3e%3c/stop%3e%3cstop stop-opacity='0' stop-color='rgba(15%2c 70%2c 185%2c 0.2)' offset='0.66'%3e%3c/stop%3e%3c/linearGradient%3e%3clinearGradient x1='100%25' y1='100%25' x2='0%25' y2='0%25' id='SvgjsLinearGradient1519'%3e%3cstop stop-color='rgba(15%2c 70%2c 185%2c 0.2)' offset='0'%3e%3c/stop%3e%3cstop stop-opacity='0' stop-color='rgba(15%2c 70%2c 185%2c 0.2)' offset='0.66'%3e%3c/stop%3e%3c/linearGradient%3e%3c/defs%3e%3c/svg%3e");
+  background-color: var(--dark);
   background-size: cover;
   position: relative;
   display: flex;

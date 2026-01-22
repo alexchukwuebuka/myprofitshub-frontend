@@ -207,7 +207,7 @@
 .user-deposit-btn {
     display: inline-block;
     border-radius: 15px;
-    background-color: rgb(2, 80, 99);
+    background-color: rgb(15, 31, 89);
     border: none;
     color: #FFFFFF;
     text-align: center;
@@ -254,13 +254,13 @@
 
 .lower-overview-card{
     width: 45%;
-    border: 1px solid rgb(2, 80, 99);
+    border: 1px solid rgb(15, 31, 89);
     border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 20px 10px;
-    background-color: rgb(2, 80, 99);
+    background-color: rgb(15, 31, 89);
 }
 .lower-card-icon-container{
     width: 20%;
